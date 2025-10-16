@@ -1,0 +1,30 @@
+[2025-10-16 00:16:43] Starting Streamlit Hub launcher on port 8500...
+2025-10-16 00:16:43.753 
+Warning: the config option 'server.enableCORS=false' is not compatible with
+'server.enableXsrfProtection=true'.
+As a result, 'server.enableCORS' is being overridden to 'true'.
+
+More information:
+In order to protect against CSRF attacks, we send a cookie with each request.
+To do so, we must specify allowable origins, which places a restriction on
+cross-origin resource sharing.
+
+If cross origin resource sharing is required, please disable server.enableXsrfProtection.
+            
+2025-10-16 00:16:43.766 Port 8500 is already in use
+[2025-10-16 00:16:46] ✅ Streamlit Hub launcher started successfully on port 8500.
+[2025-10-16 00:16:51] Starting Streamlit Hub launcher on port 8500...
+2025-10-16 00:16:52.008 
+Warning: the config option 'server.enableCORS=false' is not compatible with
+'server.enableXsrfProtection=true'.
+As a result, 'server.enableCORS' is being overridden to 'true'.
+
+More information:
+In order to protect against CSRF attacks, we send a cookie with each request.
+To do so, we must specify allowable origins, which places a restriction on
+cross-origin resource sharing.
+
+If cross origin resource sharing is required, please disable server.enableXsrfProtection.
+            
+2025-10-16 00:16:52.021 Port 8500 is already in use
+[2025-10-16 00:16:54] ✅ Streamlit Hub launcher started successfully on port 8500.

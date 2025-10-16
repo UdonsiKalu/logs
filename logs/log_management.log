@@ -1,0 +1,21 @@
+[2025-10-16 00:16:55] Starting log management service...
+[2025-10-16 00:16:55] Performing initial log management setup...
+[2025-10-16 00:16:55] Cleaning up logs older than 30 days...
+[2025-10-16 00:16:55] ✅ Old log cleanup completed
+[2025-10-16 00:16:56] ✅ Disk usage is 72% (OK)
+[2025-10-16 00:16:56] Current log file sizes:
+[2025-10-16 00:16:56]   -rw-rw-r-- 1 udonsi-kalu udonsi-kalu 330 Oct 16 00:16 /home/udonsi-kalu/workspace/logs/log_management.log
+[2025-10-16 00:16:56]   -rw-rw-r-- 1 udonsi-kalu udonsi-kalu 384 Oct 16 00:16 /home/udonsi-kalu/workspace/logs/qdrant.log
+[2025-10-16 00:16:56]   -rw-rw-r-- 1 udonsi-kalu udonsi-kalu 11K Oct 16 00:16 /home/udonsi-kalu/workspace/logs/health_monitor.log
+[2025-10-16 00:16:56]   -rw-rw-r-- 1 udonsi-kalu udonsi-kalu 122 Oct 16 00:16 /home/udonsi-kalu/workspace/logs/streamlit.log
+[2025-10-16 00:16:56]   -rw-rw-r-- 1 udonsi-kalu udonsi-kalu 840 Oct 16 00:16 /home/udonsi-kalu/workspace/logs/database.log
+[2025-10-16 00:16:56]   -rw-rw-r-- 1 udonsi-kalu udonsi-kalu 6.7K Oct 16 00:16 /home/udonsi-kalu/workspace/logs/gpu_monitor.log
+[2025-10-16 00:16:56]   -rw-rw-r-- 1 udonsi-kalu udonsi-kalu 1.4K Oct 16 00:16 /home/udonsi-kalu/workspace/logs/streamlit_hub.log
+[2025-10-16 00:16:56]   -rw-rw-r-- 1 udonsi-kalu udonsi-kalu 3.9M Oct 16 00:16 /home/udonsi-kalu/workspace/logs/rclone.log
+[2025-10-16 00:16:56] Starting log monitoring service...
+[2025-10-16 00:16:56] ✅ Log monitoring service started with PID: 2077077
+[2025-10-16 00:16:56] Setting up logrotate configuration...
+[2025-10-16 00:16:56] ✅ Log management service started successfully
+[2025-10-16 00:16:56] Log files location: /home/udonsi-kalu/workspace/logs
+[2025-10-16 00:16:56] Log rotation: Daily, keep 30 days
+[2025-10-16 00:16:56] Max log size: 100MB before rotation
