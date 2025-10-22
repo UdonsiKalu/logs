@@ -1,0 +1,22 @@
+# Automated sync scripts (keep local only)
+startup-scripts/auto_sync.sh
+startup-scripts/auto_commit.sh
+startup-scripts/daily_sync.sh
+startup-scripts/setup_auto_sync.sh
+
+# Sync-related logs and tracking files
+logs/auto_sync.log
+logs/auto_sync_cron.log
+logs/sync_setup.log
+sync_status.json
+sync_log.txt
+project_status.json
+
+# Virtual environments
+venvs/
+
+# Backup files
+backups/
+
+# Temporary conversion scripts
+convert_*.py
