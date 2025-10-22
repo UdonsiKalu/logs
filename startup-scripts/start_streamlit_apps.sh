@@ -5,7 +5,7 @@
 # Configuration
 DENIALS_DIR="/media/udonsi-kalu/New Volume/denials"
 RAG_DIR="$DENIALS_DIR/cms/manuals/rag"
-VENV_PATH="$DENIALS_DIR/faiss_gpu1/bin/activate"
+VENV_PATH="/media/udonsi-kalu/New Volume/denials/denials/faiss_gpu1/bin/activate"
 LOG_FILE="$HOME/workspace/logs/streamlit.log"
 
 # Create logs directory if it doesn't exist
@@ -60,3 +60,4 @@ else
     log "Check logs: $LOG_FILE.app4, $LOG_FILE.app2"
     exit 1
 fi
+

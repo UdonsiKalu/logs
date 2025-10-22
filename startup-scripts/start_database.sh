@@ -57,3 +57,4 @@ if nc -z localhost 3306 2>/dev/null; then
 fi
 
 log "Database service check completed"
+

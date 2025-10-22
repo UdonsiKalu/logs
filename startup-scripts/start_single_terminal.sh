@@ -43,3 +43,4 @@ echo "📋 Tab Navigation:"
 echo "   - Click on tab names to switch"
 echo "   - Or use Ctrl+PageUp/PageDown"
 echo "   - Each tab runs a different service"
+

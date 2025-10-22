@@ -7,3 +7,4 @@ echo ""
 
 # Run the auto-start script
 /home/udonsi-kalu/workspace/startup-scripts/auto_start_monitor.sh
+

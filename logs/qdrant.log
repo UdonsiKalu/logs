@@ -6,3 +6,9 @@ Error response from daemon: No such container: qdrant
 Error: failed to start containers: qdrant
 Error response from daemon: No such container: qdrant
 Error: failed to start containers: qdrant
+Error response from daemon: No such container: qdrant
+Error: failed to start containers: qdrant
+[Qdrant] Container not found. Creating...
+0632306a11b172932b56e8734994297097ddc810c2ba2f8dd341435ac452317b
+[Qdrant] Container created.
+[Qdrant] Container already running.

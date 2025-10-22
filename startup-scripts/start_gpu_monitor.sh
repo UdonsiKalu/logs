@@ -62,3 +62,4 @@ if command -v nvidia-smi &> /dev/null; then
 fi
 
 log "GPU monitoring service started successfully"
+

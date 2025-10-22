@@ -134,3 +134,4 @@ log "✅ Log management service started successfully"
 log "Log files location: $LOGS_DIR"
 log "Log rotation: Daily, keep 30 days"
 log "Max log size: 100MB before rotation"
+

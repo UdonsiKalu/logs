@@ -135,3 +135,4 @@ echo "🚀 Quick Start:"
 echo "   screen -r qdrant_monitor    # Monitor Qdrant"
 echo "   screen -r system_monitor    # Monitor system"
 echo "   screen -r shell_session     # Interactive shell"
+

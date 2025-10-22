@@ -1,9 +1,9 @@
 #!/bin/bash
 # Start Rclone sync service
-# Syncs local denials folder to Google Drive daily
+# Syncs entire denials folder (including cms and denials) to Google Drive daily
 
 # Configuration
-LOCAL_FOLDER="/media/udonsi-kalu/New Volume/denials/denials"
+LOCAL_FOLDER="/media/udonsi-kalu/New Volume/denials"
 REMOTE_NAME="gdrive_backup"
 LOG_FILE="$HOME/workspace/logs/rclone.log"
 
@@ -38,7 +38,7 @@ log "Local: $LOCAL_FOLDER"
 log "Remote: $REMOTE_NAME"
 
 # Start the sync process in background
-nohup rclone sync "$LOCAL_FOLDER" "$REMOTE_NAME:/denials_backup" \
+nohup rclone sync "$LOCAL_FOLDER" "$REMOTE_NAME:/denials-backup" \
     --progress \
     --log-file="$LOG_FILE" \
     --log-level=INFO \
@@ -55,6 +55,11 @@ nohup rclone sync "$LOCAL_FOLDER" "$REMOTE_NAME:/denials_backup" \
     --exclude="*.pyc" \
     --exclude=".DS_Store" \
     --exclude="Thumbs.db" \
+    --exclude="faiss_gpu1/**" \
+    --exclude="faiss_venv/**" \
+    --exclude="venv/**" \
+    --exclude="*.index" \
+    --exclude="*.faiss" \
     > /dev/null 2>&1 &
 
 # Get the PID
@@ -73,3 +78,4 @@ else
     log "❌ Failed to start rclone sync"
     exit 1
 fi
+

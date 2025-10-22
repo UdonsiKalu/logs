@@ -28,3 +28,24 @@ If cross origin resource sharing is required, please disable server.enableXsrfPr
             
 2025-10-16 00:16:52.021 Port 8500 is already in use
 [2025-10-16 00:16:54] ✅ Streamlit Hub launcher started successfully on port 8500.
+[2025-10-16 07:18:08] Starting Streamlit Hub launcher on port 8500...
+2025-10-16 07:18:08.919 
+Warning: the config option 'server.enableCORS=false' is not compatible with
+'server.enableXsrfProtection=true'.
+As a result, 'server.enableCORS' is being overridden to 'true'.
+
+More information:
+In order to protect against CSRF attacks, we send a cookie with each request.
+To do so, we must specify allowable origins, which places a restriction on
+cross-origin resource sharing.
+
+If cross origin resource sharing is required, please disable server.enableXsrfProtection.
+            
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8500/app
+  Network URL: http://192.168.4.153:8500/app
+  External URL: http://23.115.181.180:8500/app
+
+[2025-10-16 07:18:11] ✅ Streamlit Hub launcher started successfully on port 8500.

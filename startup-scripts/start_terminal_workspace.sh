@@ -74,3 +74,4 @@ echo "   Streamlit App 2: http://localhost:8509"
 echo "   Qdrant Dashboard: http://localhost:6333/dashboard"
 echo ""
 echo "📊 All services are now running in separate terminal tabs!"
+
