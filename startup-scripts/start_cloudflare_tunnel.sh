@@ -37,25 +37,25 @@ if [ -n "$TUNNEL_URL" ]; then
     echo "$TUNNEL_URL" > "$URL_FILE"
     echo "" | tee -a "$LOG_FILE"
     echo "============================================" | tee -a "$LOG_FILE"
-    echo "✅ Cloudflare Tunnel is LIVE!" | tee -a "$LOG_FILE"
+    echo " Cloudflare Tunnel is LIVE!" | tee -a "$LOG_FILE"
     echo "============================================" | tee -a "$LOG_FILE"
-    echo "🌐 Public URL: $TUNNEL_URL" | tee -a "$LOG_FILE"
-    echo "📱 Share this link with anyone!" | tee -a "$LOG_FILE"
+    echo " Public URL: $TUNNEL_URL" | tee -a "$LOG_FILE"
+    echo " Share this link with anyone!" | tee -a "$LOG_FILE"
     echo "============================================" | tee -a "$LOG_FILE"
     echo "" | tee -a "$LOG_FILE"
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] URL saved to: $URL_FILE" | tee -a "$LOG_FILE"
 else
-    echo "⚠️  Could not extract URL yet. Check log: $LOG_FILE"
+    echo "  Could not extract URL yet. Check log: $LOG_FILE"
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] Warning: Could not extract tunnel URL" >> "$LOG_FILE"
 fi
 
 echo ""
-echo "📋 Tunnel Info:"
+echo " Tunnel Info:"
 echo "   PID: $TUNNEL_PID"
 echo "   Log: $LOG_FILE"
 echo "   URL file: $URL_FILE"
 echo ""
-echo "💡 To get the URL anytime, run:"
+echo " To get the URL anytime, run:"
 echo "   cat $URL_FILE"
 
 

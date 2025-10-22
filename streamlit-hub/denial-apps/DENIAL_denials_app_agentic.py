@@ -26,7 +26,7 @@ def generate_download(results, filename="results.json"):
     return buffer
 
 # --- Main Tabs ---
-tab1, tab2, tab3 = st.tabs(["🔎 Single Claim", "📋 Multiple (Text)", " Upload CSV"])
+tab1, tab2, tab3 = st.tabs([" Single Claim", " Multiple (Text)", " Upload CSV"])
 
 # --- Single Claim Input ---
 with tab1:
@@ -50,7 +50,7 @@ with tab1:
                 st.error("Agent failed to extract structured action.")
             else:
                 progress.progress(35)
-                status.text(f"⚙️ Tool selected: `{parsed['action']}`")
+                status.text(f" Tool selected: `{parsed['action']}`")
                 tool = {t.name: t for t in cms_tools}.get(parsed["action"])
 
                 if not tool:
@@ -60,11 +60,11 @@ with tab1:
                 else:
                     try:
                         progress.progress(65)
-                        status.text("🔧 Executing tool...")
+                        status.text(" Executing tool...")
                         result = tool.func(parsed["action_input"])
 
                         progress.progress(90)
-                        status.text("📋 Rendering results...")
+                        status.text(" Rendering results...")
                         render_claim_analysis(parsed, result)
                         st.markdown("---")
                         render_agent_trace(parsed, result)
@@ -117,8 +117,8 @@ CPT 99223 with diagnosis E11.9 and modifier -25"""
                 status.text(f"Processed {i + 1}/{len(claims)}")
 
             status.empty()
-            st.success(f"Finished {len(claims)} claims — {success_count} success, {fail_count} errors.")
-            st.download_button("📥 Download Results", data=generate_download(batch_results), file_name="batch_results.json", mime="application/json")
+            st.success(f"Finished {len(claims)} claims  {success_count} success, {fail_count} errors.")
+            st.download_button(" Download Results", data=generate_download(batch_results), file_name="batch_results.json", mime="application/json")
 
 # --- Upload CSV File ---
 with tab3:
@@ -156,5 +156,5 @@ with tab3:
                     status.text(f"Processed {i + 1}/{len(df)}")
 
                 status.empty()
-                st.success(f"Finished {len(df)} claims — {success_count} success, {fail_count} errors.")
-                st.download_button("📥 Download Results", data=generate_download(batch_results), file_name="csv_claim_results.json", mime="application/json")
+                st.success(f"Finished {len(df)} claims  {success_count} success, {fail_count} errors.")
+                st.download_button(" Download Results", data=generate_download(batch_results), file_name="csv_claim_results.json", mime="application/json")

@@ -3,7 +3,7 @@
 Claim Corrector Module (Dual-Mode: Denial vs Quality)
 - Primary mode: Denial prevention (NCCI, CMS, LCD, PFS, Claims Manual)
 - Secondary mode: Quality/Contextual (MIPS, Managed Care)
-- Pulls risky DX–PROC combos from claim_analysis_metadata
+- Pulls risky DXPROC combos from claim_analysis_metadata
 - Queries chosen policy group
 - Attaches evidence + contextual synthesis
 """

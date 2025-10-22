@@ -7,7 +7,7 @@ Stage 2: Archetype-driven corrective reasoning with targeted policy search
 UPDATE 1 CHANGES:
 - Fixed ICD-9/ICD-10 mismatch in SQL queries
 - Added smart ICD version detection (ICD-10 starts with letter, ICD-9 is numeric)
-- Added GEMs fallback mapping for ICD-10 ↔ ICD-9 conversion
+- Added GEMs fallback mapping for ICD-10  ICD-9 conversion
 - Dynamic SQL query construction based on available ICD version
 
 UPDATE 2 CHANGES:
@@ -36,12 +36,12 @@ UPDATE 5 CHANGES:
 - Added _normalize_icd10_for_gems() helper to remove decimals for GEMS queries
 - GEMS table stores codes without decimals (M1611) but description table has decimals (M16.11)
 - Updated _map_icd10_to_icd9(), _get_icd10_alternatives_from_db() to normalize codes
-- Ensures M16.11 → M1611 when querying GEMS, then converts back for display
+- Ensures M16.11  M1611 when querying GEMS, then converts back for display
 
 UPDATE 6 CHANGES:
 - Migrated from table_2018_I9gem_fixed to vw_icd9_to_icd10_master VIEW
 - Master view contains descriptions (no separate lookup needed)
-- Bidirectional mapping support (ICD-9 ↔ ICD-10)
+- Bidirectional mapping support (ICD-9  ICD-10)
 - Added mapping_type='CM' filter for diagnosis codes
 - Simplified _get_icd10_description() - now uses master view
 - Updated _map_icd10_to_icd9() to use master view
@@ -178,7 +178,7 @@ ARCHETYPE_DEFINITIONS = {
             "Split procedures into separate claim lines when appropriate.",
             "Verify same-day procedure compatibility per NCCI edits."
         ],
-        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, §E.1"
+        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, E.1"
     },
     "Primary_DX_Not_Covered": {
         "description": "Primary ICD-10 diagnosis is not covered under the relevant LCD or NCD.",
@@ -222,13 +222,13 @@ ARCHETYPE_DEFINITIONS = {
             WHERE ncci.procedure_code = ?
               AND ncci.mue_threshold IS NOT NULL
         """,
-        "sql_insight": "Identifies where claim line units exceed CMS MUE limits and flags corresponding MAI (1–3) levels.",
+        "sql_insight": "Identifies where claim line units exceed CMS MUE limits and flags corresponding MAI (13) levels.",
         "correction_strategies": [
-            "Reduce billed units to ≤ MUE limit for the HCPCS/CPT code.",
+            "Reduce billed units to  MUE limit for the HCPCS/CPT code.",
             "Include medical necessity documentation for exceeding MUE threshold.",
             "Verify if MUE has MAI of 1 (line edit) or 2/3 (date of service edit)."
         ],
-        "sample_reference": "NCCI MUE Table – CMS Transmittal 12674"
+        "sample_reference": "NCCI MUE Table  CMS Transmittal 12674"
     },
     "NCD_Terminated": {
         "description": "National Coverage Determination for this procedure is terminated or expired.",
@@ -320,7 +320,7 @@ ARCHETYPE_DEFINITIONS = {
         "correction_strategies": [
             "Maintain documentation and continue standard billing process."
         ],
-        "sample_reference": "CMS Claims Processing Manual Ch. 12 §40"
+        "sample_reference": "CMS Claims Processing Manual Ch. 12 40"
     }
 }
 
@@ -487,11 +487,11 @@ class SQLDatabaseConnector:
             self.connection = pyodbc.connect(self.connection_string)
             print(" SQL Database connection established")
         except Exception as e:
-            print(f"️ SQL Database connection failed: {e}")
+            print(f" SQL Database connection failed: {e}")
             self.connection = None
     
     def _is_icd10(self, code: str) -> bool:
-        """Check if code is ICD-10 (starts with letter, ≤7 chars)"""
+        """Check if code is ICD-10 (starts with letter, 7 chars)"""
         if not code:
             return False
         return code[0].isalpha() and len(code) <= 7
@@ -507,7 +507,7 @@ class SQLDatabaseConnector:
     def _denormalize_icd10_for_display(self, gems_code: str) -> str:
         """
         Convert GEMS format back to standard ICD-10 format with decimal.
-        M1611 → M16.11
+        M1611  M16.11
         """
         if not gems_code or len(gems_code) < 4:
             return gems_code
@@ -525,7 +525,7 @@ class SQLDatabaseConnector:
         if not self.connection or not icd10:
             return []
         try:
-            # Normalize: M16.11 → M1611 for GEMS query
+            # Normalize: M16.11  M1611 for GEMS query
             normalized_icd10 = self._normalize_icd10_for_gems(icd10)
             
             query = """
@@ -536,7 +536,7 @@ class SQLDatabaseConnector:
             df = pd.read_sql(query, self.connection, params=[normalized_icd10])
             return df['icd9_code'].tolist() if not df.empty else []
         except Exception as e:
-            print(f"   ️ ICD-10 to ICD-9 mapping failed: {e}")
+            print(f"    ICD-10 to ICD-9 mapping failed: {e}")
             return []
     
     def _map_icd9_to_icd10(self, icd9: str) -> List[str]:
@@ -552,7 +552,7 @@ class SQLDatabaseConnector:
             df = pd.read_sql(query, self.connection, params=[icd9])
             return df['icd10_code'].tolist() if not df.empty else []
         except Exception as e:
-            print(f"   ️ ICD-9 to ICD-10 mapping failed: {e}")
+            print(f"    ICD-9 to ICD-10 mapping failed: {e}")
             return []
     
     #  UPDATE6: Simplified to use master view (includes descriptions)
@@ -561,7 +561,7 @@ class SQLDatabaseConnector:
         if not self.connection or not icd10_code:
             return ""
         try:
-            # Normalize: M16.11 → M1611
+            # Normalize: M16.11  M1611
             normalized_icd10 = self._normalize_icd10_for_gems(icd10_code)
             
             query = """
@@ -572,7 +572,7 @@ class SQLDatabaseConnector:
             df = pd.read_sql(query, self.connection, params=[normalized_icd10])
             return df['icd10_description'].values[0] if not df.empty else ""
         except Exception as e:
-            print(f"   ️ ICD-10 description lookup failed: {e}")
+            print(f"    ICD-10 description lookup failed: {e}")
             return ""
     
     #  UPDATE4: New method to get database-driven ICD-10 alternatives
@@ -592,7 +592,7 @@ class SQLDatabaseConnector:
         alternatives = []
         
         try:
-            # Normalize: M16.11 → M1611 for GEMS query
+            # Normalize: M16.11  M1611 for GEMS query
             normalized_icd10 = self._normalize_icd10_for_gems(icd10_code)
             
             # Strategy 1: Find alternatives via shared ICD-9 mapping (most reliable)
@@ -616,7 +616,7 @@ class SQLDatabaseConnector:
             
             if not df_shared.empty:
                 for _, row in df_shared.iterrows():
-                    # Convert GEMS format to display format: M1610 → M16.10
+                    # Convert GEMS format to display format: M1610  M16.10
                     display_code = self._denormalize_icd10_for_display(row['icd10_code'])
                     alternatives.append({
                         "code": display_code,
@@ -656,11 +656,11 @@ class SQLDatabaseConnector:
                 print(f"    Found {len(alternatives)} alternatives via pattern matching ({normalized_pattern})")
                 return alternatives
             
-            print(f"   ️ No alternatives found for {icd10_code}")
+            print(f"    No alternatives found for {icd10_code}")
             return []
             
         except Exception as e:
-            print(f"   ️ Database-driven alternative lookup failed: {e}")
+            print(f"    Database-driven alternative lookup failed: {e}")
             import traceback
             traceback.print_exc()
             return []
@@ -685,14 +685,14 @@ class SQLDatabaseConnector:
     def execute_archetype_query(self, archetype: str, codes: Dict[str, str]) -> List[Dict[str, Any]]:
         """Execute archetype-specific SQL query with smart ICD version detection and validation"""
         if not self.connection:
-            print("️ No SQL connection available")
+            print(" No SQL connection available")
             return []
         
         archetype_info = ARCHETYPE_DEFINITIONS.get(archetype, {})
         base_sql = archetype_info.get('sql_query', '')
         
         if not base_sql:
-            print(f"️ No SQL query defined for archetype: {archetype}")
+            print(f" No SQL query defined for archetype: {archetype}")
             return []
         
         try:
@@ -710,7 +710,7 @@ class SQLDatabaseConnector:
                     print(f"      SQL Evidence: {len(evidence)} records")
                     return evidence
                 else:
-                    print(f"   ️ SQL Evidence: Empty/NULL records for archetype '{archetype}'")
+                    print(f"    SQL Evidence: Empty/NULL records for archetype '{archetype}'")
                     return self._get_fallback_evidence(archetype, codes, "sql_returned_nulls")
             
             # DX-driven archetypes with ICD version awareness
@@ -756,7 +756,7 @@ class SQLDatabaseConnector:
                     
                     if icd10:
                         mapped_icd9 = self._map_icd10_to_icd9(icd10)
-                        print(f"    Mapped {icd10} → {mapped_icd9}")
+                        print(f"    Mapped {icd10}  {mapped_icd9}")
                         for mapped_code in mapped_icd9:
                             rows = run_dx_query('g.icd9_code = ?', mapped_code)
                             if rows and not all(self._is_empty_record(r) for r in rows):
@@ -766,7 +766,7 @@ class SQLDatabaseConnector:
                     
                     if not results and icd9:
                         mapped_icd10 = self._map_icd9_to_icd10(icd9)
-                        print(f"    Mapped {icd9} → {mapped_icd10}")
+                        print(f"    Mapped {icd9}  {mapped_icd10}")
                         for mapped_code in mapped_icd10:
                             rows = run_dx_query('g.icd10_code = ?', mapped_code)
                             if rows and not all(self._is_empty_record(r) for r in rows):
@@ -776,7 +776,7 @@ class SQLDatabaseConnector:
                 
                 #  UPDATE3: Return enriched fallback if still empty
                 if not results or all(self._is_empty_record(r) for r in results):
-                    print(f"   ️ No valid SQL evidence, using fallback data")
+                    print(f"    No valid SQL evidence, using fallback data")
                     return self._get_fallback_evidence(archetype, codes, "no_lcd_coverage_data")
                 
                 return results
@@ -784,7 +784,7 @@ class SQLDatabaseConnector:
             return []
             
         except Exception as e:
-            print(f"️ SQL query failed for archetype '{archetype}': {e}")
+            print(f" SQL query failed for archetype '{archetype}': {e}")
             return self._get_fallback_evidence(archetype, codes, f"sql_error: {str(e)[:100]}")
     
     #  UPDATE3: New method for fallback evidence
@@ -894,10 +894,10 @@ class ArchetypeDrivenClaimCorrector:
                 issue['procedure_name'] = dynamic_procedure_name
                 print(f"    Procedure: {dynamic_procedure_name}")
             
-            print(f"    ▸ STAGE 1: Calibrated denial reasoning analysis...")
+            print(f"     STAGE 1: Calibrated denial reasoning analysis...")
             stage1_result = self._stage1_calibrated_denial_reasoning(issue)
             
-            print(f"    ▸ STAGE 2: Archetype-driven corrective reasoning...")
+            print(f"     STAGE 2: Archetype-driven corrective reasoning...")
             stage2_result = self._stage2_archetype_corrective_reasoning(issue, stage1_result)
             
             enriched_issue = {
@@ -910,7 +910,7 @@ class ArchetypeDrivenClaimCorrector:
             
             # Add spacing between issues
             if idx < len(issues):
-                print("\n" + "  " + "·"*76 + "\n")
+                print("\n" + "  " + ""*76 + "\n")
 
         print("\n" + "-"*80)
         print(f"  CLAIM {claim_id} COMPLETE: Processed {len(enriched_issues)} issue(s)")
@@ -1297,7 +1297,7 @@ class ArchetypeDrivenClaimCorrector:
                         correction_policies.append(policy_dict)
                         
                 except Exception as e:
-                    print(f"️ Archetype search failed for {collection}: {e}")
+                    print(f" Archetype search failed for {collection}: {e}")
         
         correction_policies.sort(key=lambda x: x.get('score', 0), reverse=True)
         return self._deduplicate_policies(correction_policies)[:6]
@@ -1396,15 +1396,15 @@ Business Impact: {sub_archetype_info.get('business_impact', 'N/A')}
             )
             
             # Run LLM with safe execution (prevents subprocess deadlock)
-            print(f"      → Generating recommendation...")
+            print(f"       Generating recommendation...")
             
             stdout, stderr, return_code = run_ollama_safe(prompt, timeout=60)
             
             if return_code != 0:
-                print(f"      ✗ LLM failed: {stderr[:100]}, using fallback")
+                print(f"       LLM failed: {stderr[:100]}, using fallback")
                 return self._generate_fallback_correction(issue, archetype, sql_evidence, f"LLM failed: {stderr[:100]}")
             
-            print(f"      ✓ Recommendation: {len(stdout)} chars")
+            print(f"       Recommendation: {len(stdout)} chars")
             
             #  UPDATE3: Robust JSON parsing
             llm_output = stdout.strip()
@@ -1413,7 +1413,7 @@ Business Impact: {sub_archetype_info.get('business_impact', 'N/A')}
             return parsed_result
                 
         except Exception as e:
-            print(f"️ SQL-driven Archetype Stage 2 LLM failed: {e}")
+            print(f" SQL-driven Archetype Stage 2 LLM failed: {e}")
             return self._generate_fallback_correction(issue, archetype, sql_evidence, f"Exception: {str(e)[:100]}")
 
     #  UPDATE3: Robust LLM output parser
@@ -1445,7 +1445,7 @@ Business Impact: {sub_archetype_info.get('business_impact', 'N/A')}
             pass
         
         # Strategy 4: Generate structured fallback
-        print(f"   ️ All JSON parsing strategies failed, using structured fallback")
+        print(f"    All JSON parsing strategies failed, using structured fallback")
         return self._generate_fallback_correction(issue, archetype, sql_evidence, llm_output[:200])
 
     #  UPDATE3: Structured fallback correction generator
@@ -1494,7 +1494,7 @@ Business Impact: {sub_archetype_info.get('business_impact', 'N/A')}
                 "sql_evidence_summary": f"MUE threshold: {mue_threshold}",
                 "recommended_corrections": [{
                     "field": "units",
-                    "suggestion": f"Reduce units to ≤ {mue_threshold}",
+                    "suggestion": f"Reduce units to  {mue_threshold}",
                     "confidence": 0.90,
                     "sql_evidence_reference": "mue_threshold from NCCI table",
                     "policy_reference": "NCCI MUE Guidelines",
@@ -1543,7 +1543,7 @@ Business Impact: {sub_archetype_info.get('business_impact', 'N/A')}
             return corrections
         else:
             # Fallback when database has no alternatives
-            print(f"   ️ No database alternatives found for {current_icd10}, using generic guidance")
+            print(f"    No database alternatives found for {current_icd10}, using generic guidance")
             return [{
                 "field": "diagnosis_code",
                 "suggestion": f"Review LCD coverage guidelines for {current_icd10}",
@@ -1740,15 +1740,15 @@ Business Impact: {sub_archetype_info.get('business_impact', 'N/A')}
                 policy_excerpts=policy_excerpts
             )
             
-            print(f"      → Analyzing...")
+            print(f"       Analyzing...")
             
             stdout, stderr, return_code = run_ollama_safe(prompt, timeout=60)
             
             if return_code != 0:
-                print(f"      ✗ LLM failed: {stderr[:100]}")
+                print(f"       LLM failed: {stderr[:100]}")
                 return {"error": f"Calibrated Stage 1 LLM failed: {stderr[:100]}"}
             
-            print(f"      ✓ Response: {len(stdout)} chars")
+            print(f"       Response: {len(stdout)} chars")
             llm_output = stdout.strip()
             try:
                 json_start = llm_output.find('{')
@@ -1764,7 +1764,7 @@ Business Impact: {sub_archetype_info.get('business_impact', 'N/A')}
                 return {"summary": llm_output, "error": f"JSON parsing failed: {e}"}
                 
         except Exception as e:
-            print(f"️ Calibrated Stage 1 LLM failed: {e}")
+            print(f" Calibrated Stage 1 LLM failed: {e}")
             return {"error": f"Calibrated Stage 1 processing failed: {e}"}
 
     def _get_claim_issues(self, claim_id: str) -> List[Dict[str, Any]]:
@@ -1795,7 +1795,7 @@ Business Impact: {sub_archetype_info.get('business_impact', 'N/A')}
             return issues
             
         except Exception as e:
-            print(f"️ Failed to get claim issues: {e}")
+            print(f" Failed to get claim issues: {e}")
             return []
 
     def _hybrid_search(self, collection: str, issue: Dict[str, Any], top_k: int = 5):
@@ -1860,7 +1860,7 @@ Business Impact: {sub_archetype_info.get('business_impact', 'N/A')}
 
             return hits or []
         except Exception as e:
-            print(f"️ Search failed for {collection}: {e}")
+            print(f" Search failed for {collection}: {e}")
             return []
 
     def _deduplicate_policies(self, policies: List[Dict[str, Any]]) -> List[Dict[str, Any]]:

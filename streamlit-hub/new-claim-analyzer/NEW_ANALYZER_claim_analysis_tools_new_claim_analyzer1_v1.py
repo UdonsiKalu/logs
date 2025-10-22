@@ -354,7 +354,7 @@ class NewClaimAnalyzer:
                     points_added += 1
                     vector_ids.append(vector_id)
                     
-                    print(f"  Stored: DX{issue['dx_position']} {issue.get('icd9_dgns_code', '')} → PROC{issue['hcpcs_position']} {issue.get('hcpcs_code', '')}")
+                    print(f"  Stored: DX{issue['dx_position']} {issue.get('icd9_dgns_code', '')}  PROC{issue['hcpcs_position']} {issue.get('hcpcs_code', '')}")
                     print(f"     Risk: {issue.get('denial_risk_level', 'OK')} (Score: {issue.get('denial_risk_score', 0)})")
                     
                 except Exception as e:

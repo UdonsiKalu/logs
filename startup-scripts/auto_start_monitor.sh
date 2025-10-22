@@ -39,11 +39,11 @@ create_monitor_session() {
     
     # Window 2: Rclone Monitor
     screen -S monitor_workspace -X screen -t "Rclone" bash -c "
-        echo '☁️  Rclone Sync Monitor'
+        echo '  Rclone Sync Monitor'
         echo '====================='
         while true; do
             clear
-            echo '☁️  Rclone Sync Monitor - $(date)'
+            echo '  Rclone Sync Monitor - $(date)'
             echo '================================='
             echo ''
             if [ -f $LOG_DIR/rclone.pid ]; then
@@ -106,11 +106,11 @@ create_monitor_session() {
     
     # Window 4: GPU Monitor (nvidia-smi)
     screen -S monitor_workspace -X screen -t "GPU" bash -c "
-        echo '🎮 GPU Monitor (nvidia-smi)'
+        echo ' GPU Monitor (nvidia-smi)'
         echo '==========================='
         while true; do
             clear
-            echo '🎮 GPU Monitor (nvidia-smi) - $(date)'
+            echo ' GPU Monitor (nvidia-smi) - $(date)'
             echo '====================================='
             echo ''
             if command -v nvidia-smi >/dev/null 2>&1; then
@@ -127,7 +127,7 @@ create_monitor_session() {
     
     # Window 5: GPU Monitor (nvtop)
     screen -S monitor_workspace -X screen -t "nvtop" bash -c "
-        echo '🎮 GPU Monitor (nvtop)'
+        echo ' GPU Monitor (nvtop)'
         echo '======================'
         if command -v nvtop >/dev/null 2>&1; then
             nvtop
@@ -140,11 +140,11 @@ create_monitor_session() {
     
     # Window 6: System Health Monitor
     screen -S monitor_workspace -X screen -t "Health" bash -c "
-        echo '💚 System Health Monitor'
+        echo ' System Health Monitor'
         echo '========================'
         while true; do
             clear
-            echo '💚 System Health Monitor - $(date)'
+            echo ' System Health Monitor - $(date)'
             echo '=================================='
             echo ''
             echo 'CPU Usage:'
@@ -166,11 +166,11 @@ create_monitor_session() {
     
     # Window 7: Log Viewer
     screen -S monitor_workspace -X screen -t "Logs" bash -c "
-        echo '📋 Log Viewer'
+        echo ' Log Viewer'
         echo '============='
         while true; do
             clear
-            echo '📋 Log Viewer - $(date)'
+            echo ' Log Viewer - $(date)'
             echo '======================'
             echo ''
             echo 'Recent logs from all services:'
@@ -187,7 +187,7 @@ create_monitor_session() {
     
     # Window 8: Interactive Shell
     screen -S monitor_workspace -X screen -t "Shell" bash -c "
-        echo '🐚 Interactive Shell'
+        echo ' Interactive Shell'
         echo '==================='
         echo 'Welcome to the monitoring workspace!'
         echo ''
@@ -212,7 +212,7 @@ create_monitor_session() {
     echo "   Streamlit App 2: http://localhost:8502"
     echo "   Qdrant Dashboard: http://localhost:6333/dashboard"
     echo ""
-    echo "📋 Screen Commands:"
+    echo " Screen Commands:"
     echo "   Attach to session: screen -r monitor_workspace"
     echo "   List windows: Ctrl+A, w"
     echo "   Switch windows: Ctrl+A, 0-7"

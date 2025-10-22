@@ -7,7 +7,7 @@ Stage 2: Archetype-driven corrective reasoning with targeted policy search
 UPDATE 1 CHANGES:
 - Fixed ICD-9/ICD-10 mismatch in SQL queries
 - Added smart ICD version detection (ICD-10 starts with letter, ICD-9 is numeric)
-- Added GEMs fallback mapping for ICD-10 ↔ ICD-9 conversion
+- Added GEMs fallback mapping for ICD-10  ICD-9 conversion
 - Dynamic SQL query construction based on available ICD version
 
 UPDATE 2 CHANGES:
@@ -36,12 +36,12 @@ UPDATE 5 CHANGES:
 - Added _normalize_icd10_for_gems() helper to remove decimals for GEMS queries
 - GEMS table stores codes without decimals (M1611) but description table has decimals (M16.11)
 - Updated _map_icd10_to_icd9(), _get_icd10_alternatives_from_db() to normalize codes
-- Ensures M16.11 → M1611 when querying GEMS, then converts back for display
+- Ensures M16.11  M1611 when querying GEMS, then converts back for display
 
 UPDATE 6 CHANGES:
 - Migrated from table_2018_I9gem_fixed to vw_icd9_to_icd10_master VIEW
 - Master view contains descriptions (no separate lookup needed)
-- Bidirectional mapping support (ICD-9 ↔ ICD-10)
+- Bidirectional mapping support (ICD-9  ICD-10)
 - Added mapping_type='CM' filter for diagnosis codes
 - Simplified _get_icd10_description() - now uses master view
 - Updated _map_icd10_to_icd9() to use master view
@@ -178,7 +178,7 @@ ARCHETYPE_DEFINITIONS = {
             "Split procedures into separate claim lines when appropriate.",
             "Verify same-day procedure compatibility per NCCI edits."
         ],
-        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, §E.1"
+        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, E.1"
     },
     "Primary_DX_Not_Covered": {
         "description": "Primary ICD-10 diagnosis is not covered under the relevant LCD or NCD.",
@@ -222,13 +222,13 @@ ARCHETYPE_DEFINITIONS = {
             WHERE ncci.procedure_code = ?
               AND ncci.mue_threshold IS NOT NULL
         """,
-        "sql_insight": "Identifies where claim line units exceed CMS MUE limits and flags corresponding MAI (1–3) levels.",
+        "sql_insight": "Identifies where claim line units exceed CMS MUE limits and flags corresponding MAI (13) levels.",
         "correction_strategies": [
-            "Reduce billed units to ≤ MUE limit for the HCPCS/CPT code.",
+            "Reduce billed units to  MUE limit for the HCPCS/CPT code.",
             "Include medical necessity documentation for exceeding MUE threshold.",
             "Verify if MUE has MAI of 1 (line edit) or 2/3 (date of service edit)."
         ],
-        "sample_reference": "NCCI MUE Table – CMS Transmittal 12674"
+        "sample_reference": "NCCI MUE Table  CMS Transmittal 12674"
     },
     "NCD_Terminated": {
         "description": "National Coverage Determination for this procedure is terminated or expired.",
@@ -320,7 +320,7 @@ ARCHETYPE_DEFINITIONS = {
         "correction_strategies": [
             "Maintain documentation and continue standard billing process."
         ],
-        "sample_reference": "CMS Claims Processing Manual Ch. 12 §40"
+        "sample_reference": "CMS Claims Processing Manual Ch. 12 40"
     }
 }
 
@@ -489,7 +489,7 @@ class SQLDatabaseConnector:
             self.connection = None
     
     def _is_icd10(self, code: str) -> bool:
-        """Check if code is ICD-10 (starts with letter, ≤7 chars)"""
+        """Check if code is ICD-10 (starts with letter, 7 chars)"""
         if not code:
             return False
         return code[0].isalpha() and len(code) <= 7
@@ -505,7 +505,7 @@ class SQLDatabaseConnector:
     def _denormalize_icd10_for_display(self, gems_code: str) -> str:
         """
         Convert GEMS format back to standard ICD-10 format with decimal.
-        M1611 → M16.11
+        M1611  M16.11
         """
         if not gems_code or len(gems_code) < 4:
             return gems_code
@@ -523,7 +523,7 @@ class SQLDatabaseConnector:
         if not self.connection or not icd10:
             return []
         try:
-            # Normalize: M16.11 → M1611 for GEMS query
+            # Normalize: M16.11  M1611 for GEMS query
             normalized_icd10 = self._normalize_icd10_for_gems(icd10)
             
             query = """
@@ -559,7 +559,7 @@ class SQLDatabaseConnector:
         if not self.connection or not icd10_code:
             return ""
         try:
-            # Normalize: M16.11 → M1611
+            # Normalize: M16.11  M1611
             normalized_icd10 = self._normalize_icd10_for_gems(icd10_code)
             
             query = """
@@ -590,7 +590,7 @@ class SQLDatabaseConnector:
         alternatives = []
         
         try:
-            # Normalize: M16.11 → M1611 for GEMS query
+            # Normalize: M16.11  M1611 for GEMS query
             normalized_icd10 = self._normalize_icd10_for_gems(icd10_code)
             
             # Strategy 1: Find alternatives via shared ICD-9 mapping (most reliable)
@@ -614,7 +614,7 @@ class SQLDatabaseConnector:
             
             if not df_shared.empty:
                 for _, row in df_shared.iterrows():
-                    # Convert GEMS format to display format: M1610 → M16.10
+                    # Convert GEMS format to display format: M1610  M16.10
                     display_code = self._denormalize_icd10_for_display(row['icd10_code'])
                     alternatives.append({
                         "code": display_code,
@@ -754,7 +754,7 @@ class SQLDatabaseConnector:
                     
                     if icd10:
                         mapped_icd9 = self._map_icd10_to_icd9(icd10)
-                        print(f"    Mapped {icd10} → {mapped_icd9}")
+                        print(f"    Mapped {icd10}  {mapped_icd9}")
                         for mapped_code in mapped_icd9:
                             rows = run_dx_query('g.icd9_code = ?', mapped_code)
                             if rows and not all(self._is_empty_record(r) for r in rows):
@@ -764,7 +764,7 @@ class SQLDatabaseConnector:
                     
                     if not results and icd9:
                         mapped_icd10 = self._map_icd9_to_icd10(icd9)
-                        print(f"    Mapped {icd9} → {mapped_icd10}")
+                        print(f"    Mapped {icd9}  {mapped_icd10}")
                         for mapped_code in mapped_icd10:
                             rows = run_dx_query('g.icd10_code = ?', mapped_code)
                             if rows and not all(self._is_empty_record(r) for r in rows):
@@ -877,7 +877,7 @@ class ArchetypeDrivenClaimCorrector:
 
         enriched_issues = []
         for issue in issues:
-            print(f"\n📋 Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
+            print(f"\n Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
             
             cpt_code = issue.get('hcpcs_code', '')
             if cpt_code:
@@ -913,7 +913,7 @@ class ArchetypeDrivenClaimCorrector:
             all_policies.extend(policies)
         
         validated_policies = self._calibrated_validate_and_deduplicate_policies(all_policies, issue)
-        print(f"   📚 Stage 1: Retrieved {len(validated_policies)} calibrated policies for denial analysis")
+        print(f"    Stage 1: Retrieved {len(validated_policies)} calibrated policies for denial analysis")
         
         stage1_analysis = self._run_calibrated_stage1_llm(issue, validated_policies)
         
@@ -936,10 +936,10 @@ class ArchetypeDrivenClaimCorrector:
             'icd10_code': issue.get('icd10_code', '')
         }
         sql_evidence = self.sql_connector.execute_archetype_query(archetype, codes)
-        print(f"   🗄️ Stage 2: Retrieved {len(sql_evidence)} SQL evidence records for archetype '{archetype}'")
+        print(f"    Stage 2: Retrieved {len(sql_evidence)} SQL evidence records for archetype '{archetype}'")
         
         correction_policies = self._search_archetype_corrections(issue, archetype)
-        print(f"   📚 Stage 2: Retrieved {len(correction_policies)} archetype-specific policies for correction analysis")
+        print(f"    Stage 2: Retrieved {len(correction_policies)} archetype-specific policies for correction analysis")
         
         #  UPDATE3: Use robust LLM with fallbacks
         stage2_analysis = self._run_sql_driven_archetype_stage2_llm_robust(
@@ -1126,7 +1126,7 @@ class ArchetypeDrivenClaimCorrector:
             )
             
             # Run LLM with safe execution (prevents subprocess deadlock)
-            print(f"   🤖 Generating LLM recommendation (safe mode, timeout: 60s)...")
+            print(f"    Generating LLM recommendation (safe mode, timeout: 60s)...")
             
             stdout, stderr, return_code = run_ollama_safe(prompt, timeout=60)
             
@@ -1224,7 +1224,7 @@ class ArchetypeDrivenClaimCorrector:
                 "sql_evidence_summary": f"MUE threshold: {mue_threshold}",
                 "recommended_corrections": [{
                     "field": "units",
-                    "suggestion": f"Reduce units to ≤ {mue_threshold}",
+                    "suggestion": f"Reduce units to  {mue_threshold}",
                     "confidence": 0.90,
                     "sql_evidence_reference": "mue_threshold from NCCI table",
                     "policy_reference": "NCCI MUE Guidelines",
@@ -1470,7 +1470,7 @@ class ArchetypeDrivenClaimCorrector:
                 policy_excerpts=policy_excerpts
             )
             
-            print(f"   🤖 Generating calibrated denial analysis (safe mode, timeout: 60s)...")
+            print(f"    Generating calibrated denial analysis (safe mode, timeout: 60s)...")
             
             stdout, stderr, return_code = run_ollama_safe(prompt, timeout=60)
             

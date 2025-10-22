@@ -137,8 +137,8 @@ REQUIRED OUTPUT FORMAT (valid JSON only):
     }}
   ],
   "policy_references": [
-    "Medicare Claims Processing Manual Ch.12 §20.4.5",
-    "LCD L34696 – Fracture and Bone Imaging Coverage"
+    "Medicare Claims Processing Manual Ch.12 20.4.5",
+    "LCD L34696  Fracture and Bone Imaging Coverage"
   ],
   "final_guidance": "Summary of how this claim can be fixed to pass",
   "compliance_checklist": [
@@ -197,7 +197,7 @@ class TwoStageCalibratedClaimCorrector:
 
         enriched_issues = []
         for issue in issues:
-            print(f"\n📋 Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
+            print(f"\n Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
             
             #  Get CPT description
             cpt_code = issue.get('hcpcs_code', '')
@@ -206,12 +206,12 @@ class TwoStageCalibratedClaimCorrector:
                 issue['procedure_name'] = dynamic_procedure_name
                 print(f"    Updated procedure name: {dynamic_procedure_name}")
             
-            # 🤲 STAGE 1: Calibrated Denial Reasoning Pass
+            #  STAGE 1: Calibrated Denial Reasoning Pass
             print(f"    STAGE 1: Calibrated denial reasoning analysis...")
             stage1_result = self._stage1_calibrated_denial_reasoning(issue)
             
-            # 🤲 STAGE 2: Corrective Reasoning Pass
-            print(f"   🔧 STAGE 2: Finding corrective solutions...")
+            #  STAGE 2: Corrective Reasoning Pass
+            print(f"    STAGE 2: Finding corrective solutions...")
             stage2_result = self._stage2_corrective_reasoning(issue, stage1_result)
             
             # Combine results
@@ -238,7 +238,7 @@ class TwoStageCalibratedClaimCorrector:
         
         # Validate and deduplicate policies using calibrated logic
         validated_policies = self._calibrated_validate_and_deduplicate_policies(all_policies, issue)
-        print(f"   📚 Stage 1: Retrieved {len(validated_policies)} calibrated policies for denial analysis")
+        print(f"    Stage 1: Retrieved {len(validated_policies)} calibrated policies for denial analysis")
         
         # Run Stage 1 calibrated LLM analysis
         stage1_analysis = self._run_calibrated_stage1_llm(issue, validated_policies)
@@ -259,7 +259,7 @@ class TwoStageCalibratedClaimCorrector:
         
         # Re-query Qdrant with correction-focused intent
         correction_policies = self._search_correction_policies(denial_keywords, issue)
-        print(f"   📚 Stage 2: Retrieved {len(correction_policies)} policies for correction analysis")
+        print(f"    Stage 2: Retrieved {len(correction_policies)} policies for correction analysis")
         
         # Run Stage 2 LLM analysis
         stage2_analysis = self._run_stage2_llm(issue, stage1_result, correction_policies)
@@ -854,8 +854,8 @@ REQUIRED OUTPUT FORMAT (valid JSON only):
     }}
   ],
   "policy_references": [
-    "Medicare Claims Processing Manual Ch.12 §20.4.5",
-    "LCD L34696 – Fracture and Bone Imaging Coverage"
+    "Medicare Claims Processing Manual Ch.12 20.4.5",
+    "LCD L34696  Fracture and Bone Imaging Coverage"
   ],
   "final_guidance": "Summary of how this claim can be fixed to pass",
   "compliance_checklist": [
@@ -914,7 +914,7 @@ class TwoStageCalibratedClaimCorrector:
 
         enriched_issues = []
         for issue in issues:
-            print(f"\n📋 Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
+            print(f"\n Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
             
             #  Get CPT description
             cpt_code = issue.get('hcpcs_code', '')
@@ -923,12 +923,12 @@ class TwoStageCalibratedClaimCorrector:
                 issue['procedure_name'] = dynamic_procedure_name
                 print(f"    Updated procedure name: {dynamic_procedure_name}")
             
-            # 🤲 STAGE 1: Calibrated Denial Reasoning Pass
+            #  STAGE 1: Calibrated Denial Reasoning Pass
             print(f"    STAGE 1: Calibrated denial reasoning analysis...")
             stage1_result = self._stage1_calibrated_denial_reasoning(issue)
             
-            # 🤲 STAGE 2: Corrective Reasoning Pass
-            print(f"   🔧 STAGE 2: Finding corrective solutions...")
+            #  STAGE 2: Corrective Reasoning Pass
+            print(f"    STAGE 2: Finding corrective solutions...")
             stage2_result = self._stage2_corrective_reasoning(issue, stage1_result)
             
             # Combine results
@@ -955,7 +955,7 @@ class TwoStageCalibratedClaimCorrector:
         
         # Validate and deduplicate policies using calibrated logic
         validated_policies = self._calibrated_validate_and_deduplicate_policies(all_policies, issue)
-        print(f"   📚 Stage 1: Retrieved {len(validated_policies)} calibrated policies for denial analysis")
+        print(f"    Stage 1: Retrieved {len(validated_policies)} calibrated policies for denial analysis")
         
         # Run Stage 1 calibrated LLM analysis
         stage1_analysis = self._run_calibrated_stage1_llm(issue, validated_policies)
@@ -976,7 +976,7 @@ class TwoStageCalibratedClaimCorrector:
         
         # Re-query Qdrant with correction-focused intent
         correction_policies = self._search_correction_policies(denial_keywords, issue)
-        print(f"   📚 Stage 2: Retrieved {len(correction_policies)} policies for correction analysis")
+        print(f"    Stage 2: Retrieved {len(correction_policies)} policies for correction analysis")
         
         # Run Stage 2 LLM analysis
         stage2_analysis = self._run_stage2_llm(issue, stage1_result, correction_policies)
@@ -1573,8 +1573,8 @@ REQUIRED OUTPUT FORMAT (valid JSON only):
     }}
   ],
   "policy_references": [
-    "Medicare Claims Processing Manual Ch.12 §20.4.5",
-    "LCD L34696 – Fracture and Bone Imaging Coverage"
+    "Medicare Claims Processing Manual Ch.12 20.4.5",
+    "LCD L34696  Fracture and Bone Imaging Coverage"
   ],
   "final_guidance": "Summary of how this claim can be fixed to pass",
   "compliance_checklist": [
@@ -1633,7 +1633,7 @@ class TwoStageCalibratedClaimCorrector:
 
         enriched_issues = []
         for issue in issues:
-            print(f"\n📋 Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
+            print(f"\n Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
             
             #  Get CPT description
             cpt_code = issue.get('hcpcs_code', '')
@@ -1642,12 +1642,12 @@ class TwoStageCalibratedClaimCorrector:
                 issue['procedure_name'] = dynamic_procedure_name
                 print(f"    Updated procedure name: {dynamic_procedure_name}")
             
-            # 🤲 STAGE 1: Calibrated Denial Reasoning Pass
+            #  STAGE 1: Calibrated Denial Reasoning Pass
             print(f"    STAGE 1: Calibrated denial reasoning analysis...")
             stage1_result = self._stage1_calibrated_denial_reasoning(issue)
             
-            # 🤲 STAGE 2: Corrective Reasoning Pass
-            print(f"   🔧 STAGE 2: Finding corrective solutions...")
+            #  STAGE 2: Corrective Reasoning Pass
+            print(f"    STAGE 2: Finding corrective solutions...")
             stage2_result = self._stage2_corrective_reasoning(issue, stage1_result)
             
             # Combine results
@@ -1674,7 +1674,7 @@ class TwoStageCalibratedClaimCorrector:
         
         # Validate and deduplicate policies using calibrated logic
         validated_policies = self._calibrated_validate_and_deduplicate_policies(all_policies, issue)
-        print(f"   📚 Stage 1: Retrieved {len(validated_policies)} calibrated policies for denial analysis")
+        print(f"    Stage 1: Retrieved {len(validated_policies)} calibrated policies for denial analysis")
         
         # Run Stage 1 calibrated LLM analysis
         stage1_analysis = self._run_calibrated_stage1_llm(issue, validated_policies)
@@ -1695,7 +1695,7 @@ class TwoStageCalibratedClaimCorrector:
         
         # Re-query Qdrant with correction-focused intent
         correction_policies = self._search_correction_policies(denial_keywords, issue)
-        print(f"   📚 Stage 2: Retrieved {len(correction_policies)} policies for correction analysis")
+        print(f"    Stage 2: Retrieved {len(correction_policies)} policies for correction analysis")
         
         # Run Stage 2 LLM analysis
         stage2_analysis = self._run_stage2_llm(issue, stage1_result, correction_policies)
@@ -2290,8 +2290,8 @@ REQUIRED OUTPUT FORMAT (valid JSON only):
     }}
   ],
   "policy_references": [
-    "Medicare Claims Processing Manual Ch.12 §20.4.5",
-    "LCD L34696 – Fracture and Bone Imaging Coverage"
+    "Medicare Claims Processing Manual Ch.12 20.4.5",
+    "LCD L34696  Fracture and Bone Imaging Coverage"
   ],
   "final_guidance": "Summary of how this claim can be fixed to pass",
   "compliance_checklist": [
@@ -2350,7 +2350,7 @@ class TwoStageCalibratedClaimCorrector:
 
         enriched_issues = []
         for issue in issues:
-            print(f"\n📋 Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
+            print(f"\n Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
             
             #  Get CPT description
             cpt_code = issue.get('hcpcs_code', '')
@@ -2359,12 +2359,12 @@ class TwoStageCalibratedClaimCorrector:
                 issue['procedure_name'] = dynamic_procedure_name
                 print(f"    Updated procedure name: {dynamic_procedure_name}")
             
-            # 🤲 STAGE 1: Calibrated Denial Reasoning Pass
+            #  STAGE 1: Calibrated Denial Reasoning Pass
             print(f"    STAGE 1: Calibrated denial reasoning analysis...")
             stage1_result = self._stage1_calibrated_denial_reasoning(issue)
             
-            # 🤲 STAGE 2: Corrective Reasoning Pass
-            print(f"   🔧 STAGE 2: Finding corrective solutions...")
+            #  STAGE 2: Corrective Reasoning Pass
+            print(f"    STAGE 2: Finding corrective solutions...")
             stage2_result = self._stage2_corrective_reasoning(issue, stage1_result)
             
             # Combine results
@@ -2391,7 +2391,7 @@ class TwoStageCalibratedClaimCorrector:
         
         # Validate and deduplicate policies using calibrated logic
         validated_policies = self._calibrated_validate_and_deduplicate_policies(all_policies, issue)
-        print(f"   📚 Stage 1: Retrieved {len(validated_policies)} calibrated policies for denial analysis")
+        print(f"    Stage 1: Retrieved {len(validated_policies)} calibrated policies for denial analysis")
         
         # Run Stage 1 calibrated LLM analysis
         stage1_analysis = self._run_calibrated_stage1_llm(issue, validated_policies)
@@ -2412,7 +2412,7 @@ class TwoStageCalibratedClaimCorrector:
         
         # Re-query Qdrant with correction-focused intent
         correction_policies = self._search_correction_policies(denial_keywords, issue)
-        print(f"   📚 Stage 2: Retrieved {len(correction_policies)} policies for correction analysis")
+        print(f"    Stage 2: Retrieved {len(correction_policies)} policies for correction analysis")
         
         # Run Stage 2 LLM analysis
         stage2_analysis = self._run_stage2_llm(issue, stage1_result, correction_policies)

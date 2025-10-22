@@ -10,7 +10,7 @@ echo " Starting Qdrant..."
 ~/workspace/startup-scripts/start_qdrant.sh
 
 # Start Rclone
-echo "☁️ Starting Rclone..."
+echo " Starting Rclone..."
 ~/workspace/startup-scripts/start_rclone.sh
 
 # Start Streamlit Apps
@@ -22,11 +22,11 @@ echo " Starting Streamlit Hub Launcher..."
 ~/workspace/startup-scripts/start_streamlit_hub.sh
 
 # Start Database Services
-echo "🗄️ Starting Database Services..."
+echo " Starting Database Services..."
 ~/workspace/startup-scripts/start_database.sh
 
 # Start GPU Monitoring
-echo "🎮 Starting GPU Monitoring..."
+echo " Starting GPU Monitoring..."
 ~/workspace/startup-scripts/start_gpu_monitor.sh
 
 # Start Log Management
@@ -34,11 +34,11 @@ echo " Starting Log Management..."
 ~/workspace/startup-scripts/start_log_management.sh
 
 # Start Health Monitoring
-echo "🏥 Starting Health Monitoring..."
+echo " Starting Health Monitoring..."
 ~/workspace/startup-scripts/start_health_monitor.sh
 
 # Add more services here as needed
-# echo "📈 Starting Claims Analyzer..."
+# echo " Starting Claims Analyzer..."
 # ~/workspace/startup-scripts/start_claims_analyzer.sh
 
 # echo " Starting Retrieval Studio..."
@@ -46,7 +46,7 @@ echo "🏥 Starting Health Monitoring..."
 
 echo "================================"
 echo " All services started!"
-echo "📋 Check logs: ~/workspace/logs/"
+echo " Check logs: ~/workspace/logs/"
 echo ""
 echo "  Terminal Workspace Options:"
 echo "   Terminal Tabs: ~/workspace/startup-scripts/start_terminal_workspace.sh"

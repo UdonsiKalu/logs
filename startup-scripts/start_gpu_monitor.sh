@@ -43,7 +43,7 @@ fi
 if python3 -c "import pynvml" 2>/dev/null; then
     log " nvidia-ml-py available for Python GPU monitoring"
 else
-    log "ℹ️ nvidia-ml-py not installed - install with: pip install nvidia-ml-py3"
+    log " nvidia-ml-py not installed - install with: pip install nvidia-ml-py3"
 fi
 
 # Start a simple GPU monitoring loop (optional)

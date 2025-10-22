@@ -32,11 +32,11 @@ You are given:
 
 Your task:
 - Carefully analyze both the claim and each policy excerpt.
-- Identify which policies are *directly relevant* to this specific claim’s CPT/HCPCS and ICD codes.
+- Identify which policies are *directly relevant* to this specific claims CPT/HCPCS and ICD codes.
 - Discard or downplay irrelevant policies (for unrelated codes, body systems, or services).
 - For each relevant policy, produce a short summary explaining how that rule affects the claim (coverage, edit restrictions, modifier use, etc.).
 - If applicable, mention any allowable corrections (e.g., valid modifiers like XU or 59, coverage documentation, or resubmission options).
-- Connect the logic between the claim’s denial reason and the matching CMS policy rule.
+- Connect the logic between the claims denial reason and the matching CMS policy rule.
 
 Return your reasoning as structured JSON:
 
@@ -120,7 +120,7 @@ class ClaimCorrector:
             policy_hits = sorted(policy_hits, key=lambda x: x["score"], reverse=True)[:top_k]
             issue["policy_support"] = policy_hits
 
-            # 🔹 Run local LLM summarization (Ollama)
+            #  Run local LLM summarization (Ollama)
             issue["policy_summary"] = self._summarize_with_llm(issue, policy_hits)
             enriched_issues.append(issue)
 

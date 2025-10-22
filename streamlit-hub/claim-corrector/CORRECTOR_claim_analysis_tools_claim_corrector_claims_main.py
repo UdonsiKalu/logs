@@ -112,7 +112,7 @@ class ClaimCorrector:
             policy_hits = sorted(policy_hits, key=lambda x: x["score"], reverse=True)[:top_k]
             issue["policy_support"] = policy_hits
 
-            # 🔹 Run LLM summarization for consistency and relevance filtering
+            #  Run LLM summarization for consistency and relevance filtering
             issue["policy_summary"] = self._summarize_with_llm(issue, policy_hits)
             enriched_issues.append(issue)
 

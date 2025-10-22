@@ -29,7 +29,7 @@ from fhir_adapter import validate_fhir_claim as _validate_fhir, convert_fhir_cla
 # ----------------------------
 # Page + Minimal Styles
 # ----------------------------
-st.set_page_config(page_title="CMS Claim Analysis v2", page_icon="🏥", layout="wide")
+st.set_page_config(page_title="CMS Claim Analysis v2", page_icon="", layout="wide")
 
 st.markdown(
 """
@@ -498,7 +498,7 @@ def main():
     }
     </style>
     <div class='custom-header'>
-        <h1>CXR Exchange — Powered by the Claims Reasoning Kernel</h1>
+        <h1>CXR Exchange  Powered by the Claims Reasoning Kernel</h1>
         <p>A unified platform for automated claim validation, correction, and compliance.</p>
     </div>
     """, unsafe_allow_html=True)
@@ -654,7 +654,7 @@ from fhir_adapter import validate_fhir_claim as _validate_fhir, convert_fhir_cla
 # ----------------------------
 # Page + Minimal Styles
 # ----------------------------
-st.set_page_config(page_title="CMS Claim Analysis v2", page_icon="🏥", layout="wide")
+st.set_page_config(page_title="CMS Claim Analysis v2", page_icon="", layout="wide")
 
 st.markdown(
 """
@@ -1123,7 +1123,7 @@ def main():
     }
     </style>
     <div class='custom-header'>
-        <h1>CXR Exchange — Powered by the Claims Reasoning Kernel</h1>
+        <h1>CXR Exchange  Powered by the Claims Reasoning Kernel</h1>
         <p>A unified platform for automated claim validation, correction, and compliance.</p>
     </div>
     """, unsafe_allow_html=True)
@@ -1281,7 +1281,7 @@ from fhir_adapter import validate_fhir_claim as _validate_fhir, convert_fhir_cla
 # ----------------------------
 # Page + Minimal Styles
 # ----------------------------
-st.set_page_config(page_title="CMS Claim Analysis v2", page_icon="🏥", layout="wide")
+st.set_page_config(page_title="CMS Claim Analysis v2", page_icon="", layout="wide")
 
 st.markdown(
 """
@@ -1750,7 +1750,7 @@ def main():
     }
     </style>
     <div class='custom-header'>
-        <h1>CXR Exchange — Powered by the Claims Reasoning Kernel</h1>
+        <h1>CXR Exchange  Powered by the Claims Reasoning Kernel</h1>
         <p>A unified platform for automated claim validation, correction, and compliance.</p>
     </div>
     """, unsafe_allow_html=True)
@@ -1906,7 +1906,7 @@ from fhir_adapter import validate_fhir_claim as _validate_fhir, convert_fhir_cla
 # ----------------------------
 # Page + Minimal Styles
 # ----------------------------
-st.set_page_config(page_title="CMS Claim Analysis v2", page_icon="🏥", layout="wide")
+st.set_page_config(page_title="CMS Claim Analysis v2", page_icon="", layout="wide")
 
 st.markdown(
 """
@@ -2375,7 +2375,7 @@ def main():
     }
     </style>
     <div class='custom-header'>
-        <h1>CXR Exchange — Powered by the Claims Reasoning Kernel</h1>
+        <h1>CXR Exchange  Powered by the Claims Reasoning Kernel</h1>
         <p>A unified platform for automated claim validation, correction, and compliance.</p>
     </div>
     """, unsafe_allow_html=True)

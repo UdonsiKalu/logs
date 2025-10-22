@@ -47,7 +47,7 @@ create_smart_link() {
     fi
 }
 
-echo "🔗 Creating symbolic links with smart naming..."
+echo " Creating symbolic links with smart naming..."
 echo ""
 
 # === ACTIVE APPS (Currently Running) ===
@@ -69,7 +69,7 @@ create_smart_link "$BASE_DIR/cms/manuals/Raw Data/claim_analysis_tools/archive_2
 echo ""
 
 # === RAG APPS ===
-echo "🤖 RAG Applications:"
+echo " RAG Applications:"
 create_smart_link "$BASE_DIR/cms/manuals/rag/streamlit_app4.py" "$HUB_DIR/rag-apps" "RAG" "app4"
 create_smart_link "$BASE_DIR/cms/manuals/rag/misc/streamlit_app3.py" "$HUB_DIR/rag-apps" "RAG" "app3"
 create_smart_link "$BASE_DIR/cms/manuals/rag/misc/streamlit_app2.py" "$HUB_DIR/rag-apps" "RAG" "app2"
@@ -89,7 +89,7 @@ create_smart_link "$BASE_DIR/git/rag_portfolio/projects/1-policy-denial-agent/st
 echo ""
 
 # === CLAIM CORRECTOR APPS ===
-echo "🔧 Claim Corrector Apps:"
+echo " Claim Corrector Apps:"
 create_smart_link "$BASE_DIR/cms/manuals/Raw Data/claim_analysis_tools/claim_corrector_claims3_archetype_driven_update10.py" "$HUB_DIR/claim-corrector" "CORRECTOR" "update10"
 create_smart_link "$BASE_DIR/cms/manuals/Raw Data/claim_analysis_tools/claim_corrector_claims3_archetype_driven_update9.py" "$HUB_DIR/claim-corrector" "CORRECTOR" "update9"
 create_smart_link "$BASE_DIR/cms/manuals/Raw Data/claim_analysis_tools/claim_corrector_claims.py" "$HUB_DIR/claim-corrector" "CORRECTOR" "main"
@@ -114,7 +114,7 @@ create_smart_link "$BASE_DIR/cms/manuals/Raw Data/claim_analysis_tools/archive_2
 echo ""
 
 # === NEW CLAIM ANALYZER APPS ===
-echo "🆕 New Claim Analyzer Apps:"
+echo " New Claim Analyzer Apps:"
 create_smart_link "$BASE_DIR/cms/manuals/Raw Data/claim_analysis_tools/new_claim_analyzer1.py" "$HUB_DIR/new-claim-analyzer" "NEW_ANALYZER" "v1"
 create_smart_link "$BASE_DIR/cms/claim_analysis_tools/new_claim_analyzer.py" "$HUB_DIR/new-claim-analyzer" "NEW_ANALYZER" "cms_tools"
 create_smart_link "$BASE_DIR/cms/manuals/Raw Data/claim_analysis_tools/archive_20251011_161233/new_claim_analyzer.py" "$HUB_DIR/new-claim-analyzer" "NEW_ANALYZER" "archive"
@@ -124,7 +124,7 @@ create_smart_link "$BASE_DIR/cms/manuals/Raw Data/claim_analysis_tools/archive_2
 echo ""
 
 # === COPY/BACKUP FILES ===
-echo "📋 Copy/Backup Files:"
+echo " Copy/Backup Files:"
 create_smart_link "$BASE_DIR/denials_agentic/misc/streamlit_app (Copy).py" "$HUB_DIR/archive" "COPY" "agentic_misc"
 create_smart_link "$BASE_DIR/denials/misc/streamlit_app (Copy).py" "$HUB_DIR/archive" "COPY" "denials_misc"
 create_smart_link "$BASE_DIR/denials_agentic/misc/streamlit_app (Copy)2.py" "$HUB_DIR/archive" "COPY" "agentic_misc2"

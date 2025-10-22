@@ -105,7 +105,7 @@ bash
 
 echo " Opened 7 terminal windows!"
 echo ""
-echo "📋 Each terminal monitors a different service:"
+echo " Each terminal monitors a different service:"
 echo "   1. Qdrant Monitor    - Container status and logs"
 echo "   2. System Monitor    - CPU, memory, disk, services"
 echo "   3. GPU Monitor       - Live GPU stats with nvtop"

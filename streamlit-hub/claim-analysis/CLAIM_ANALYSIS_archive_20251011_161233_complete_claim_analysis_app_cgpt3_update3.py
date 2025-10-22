@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-CXR Exchange — Final Unified Version
+CXR Exchange  Final Unified Version
 --------------------------------------
-✓ Combined minimalist global styling + risk-colored cards
-✓ Stage 1 & 3 as stacked cards inside dropdowns
-✓ Global UI polish for sidebar, buttons, tables, typography
-✓ Risk-level color legend included
+ Combined minimalist global styling + risk-colored cards
+ Stage 1 & 3 as stacked cards inside dropdowns
+ Global UI polish for sidebar, buttons, tables, typography
+ Risk-level color legend included
 """
 
 import streamlit as st
@@ -29,7 +29,7 @@ from fhir_adapter import validate_fhir_claim as _validate_fhir, convert_fhir_cla
 # ----------------------------------------------------
 # Page + Unified CSS
 # ----------------------------------------------------
-st.set_page_config(page_title="CXR Exchange", page_icon="🏥", layout="wide")
+st.set_page_config(page_title="CXR Exchange", page_icon="", layout="wide")
 
 st.markdown("""
 <style>
@@ -220,9 +220,9 @@ def run_archetype_v3(cid): return ArchetypeDrivenClaimCorrectorV3().run_archetyp
 def get_risk_class(action: str):
     """
     Map action types to color classes.
-    - IMMEDIATE → high (red)
-    - REVIEW → medium (yellow)
-    - NO ACTION → low (green)
+    - IMMEDIATE  high (red)
+    - REVIEW  medium (yellow)
+    - NO ACTION  low (green)
     """
     if not action:
         return "neutral"
@@ -250,18 +250,18 @@ def show_v3_summary(data):
     st.markdown(
         """
         <div style='margin-top:10px;'>
-          <span style='background:#fee2e2;border-radius:6px;padding:4px 10px;margin-right:8px;'>🔴 IMMEDIATE — Critical Action Required</span>
-          <span style='background:#fef3c7;border-radius:6px;padding:4px 10px;margin-right:8px;'>🟠 REVIEW — Manual Review or Verification</span>
-          <span style='background:#dcfce7;border-radius:6px;padding:4px 10px;'>🟢 NO ACTION — Informational / Cleared</span>
+          <span style='background:#fee2e2;border-radius:6px;padding:4px 10px;margin-right:8px;'> IMMEDIATE  Critical Action Required</span>
+          <span style='background:#fef3c7;border-radius:6px;padding:4px 10px;margin-right:8px;'> REVIEW  Manual Review or Verification</span>
+          <span style='background:#dcfce7;border-radius:6px;padding:4px 10px;'> NO ACTION  Informational / Cleared</span>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
     # ---------------------------
-    # Stage 1 – Issues Analysis
+    # Stage 1  Issues Analysis
     # ---------------------------
-    with st.expander("Stage 1 – Issues Analysis", expanded=True):
+    with st.expander("Stage 1  Issues Analysis", expanded=True):
         if not enriched_issues:
             st.info("No issues found.")
         else:
@@ -290,9 +290,9 @@ def show_v3_summary(data):
                 )
 
     # ---------------------------
-    # Stage 2 – Archetype Analysis
+    # Stage 2  Archetype Analysis
     # ---------------------------
-    with st.expander("Stage 2 – Archetype Analysis", expanded=False):
+    with st.expander("Stage 2  Archetype Analysis", expanded=False):
         archetype_counts = {}
         total_sql_evidence = 0
 
@@ -314,9 +314,9 @@ def show_v3_summary(data):
             st.info("No archetype data found.")
 
     # ---------------------------
-    # Stage 3 – Correction Recommendations
+    # Stage 3  Correction Recommendations
     # ---------------------------
-    with st.expander("Stage 3 – Correction Recommendations", expanded=False):
+    with st.expander("Stage 3  Correction Recommendations", expanded=False):
         rec_cards = []
         for issue in enriched_issues:
             s2 = issue.get("stage2_archetype_correction_analysis")
@@ -341,7 +341,7 @@ def show_v3_summary(data):
                 
                 # Format implementation steps
                 if impl_steps and isinstance(impl_steps, list):
-                    impl_text = "<br>".join([f"• {step}" for step in impl_steps])
+                    impl_text = "<br>".join([f" {step}" for step in impl_steps])
                 else:
                     impl_text = impl_steps if isinstance(impl_steps, str) else ""
                 
@@ -375,7 +375,7 @@ def show_v3_summary(data):
 # ----------------------------------------------------
 def main():
     st.markdown(
-        "<div class='custom-header'><h1>CXR Exchange — Claims Reasoning Kernel</h1><p>Automated claim validation, correction, and compliance.</p></div>",
+        "<div class='custom-header'><h1>CXR Exchange  Claims Reasoning Kernel</h1><p>Automated claim validation, correction, and compliance.</p></div>",
         unsafe_allow_html=True,
     )
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Claim Corrector Module (Enhanced with Regex Fallback)
-- Pulls risky DX–PROC combos from claim_analysis_metadata (structured store)
+- Pulls risky DXPROC combos from claim_analysis_metadata (structured store)
 - Queries policy RAG collections (cms_policies, lcd_policies, etc.)
 - Attaches retrieved evidence (with regex metadata fallback) to each issue
 """

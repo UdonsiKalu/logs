@@ -4,7 +4,7 @@ Enhanced Archetype-Driven Claim Corrector v3.0
 ==============================================
 
 Key updates vs v2:
-- ICD version–aware SQL for DX-driven archetypes (ICD-10 or ICD-9)
+- ICD versionaware SQL for DX-driven archetypes (ICD-10 or ICD-9)
 - GEMs-based fallback mapping when direct version returns 0 rows
 - Adds Secondary_DX_Not_Covered definition explicitly
 """
@@ -346,12 +346,12 @@ class ArchetypeDrivenClaimCorrectorV3:
         # Build code type information
         code_info = f"""
 CODE IDENTIFICATION:
-- PROCEDURE CODE (CPT/HCPCS): {proc_code} → Use for: modifier checks, PTP edits, MUE review, prior auth, bundling
-- DIAGNOSIS CODE (ICD-10/ICD-9): {dx_code} → Use for: coverage validation, medical necessity, LCD/NCD compliance
+- PROCEDURE CODE (CPT/HCPCS): {proc_code}  Use for: modifier checks, PTP edits, MUE review, prior auth, bundling
+- DIAGNOSIS CODE (ICD-10/ICD-9): {dx_code}  Use for: coverage validation, medical necessity, LCD/NCD compliance
 
 CRITICAL RULES:
 1. Modifiers (59, 25, XE, XS, XP, XU) apply ONLY to PROCEDURE codes, NEVER to DIAGNOSIS codes
-2. If a code starts with a letter and is ≤7 chars (e.g., M16.11, Z99.89), it is ICD - do NOT assign modifiers
+2. If a code starts with a letter and is 7 chars (e.g., M16.11, Z99.89), it is ICD - do NOT assign modifiers
 3. Only 5-digit numeric or alphanumeric codes (e.g., 27130, G0299) are procedures that can have modifiers
 """
         
@@ -392,7 +392,7 @@ REQUIRED OUTPUT FORMAT (valid JSON only):
       "current_value": "what is currently on the claim",
       "suggested_value": "exact new value to enter or add",
       "rationale": "why this change is needed based on CMS policy",
-      "policy_citation": "specific LCD/NCD/NCCI edit number and section (e.g., 'LCD L12345 §3.2, NCCI PTP edit 27130-27447')",
+      "policy_citation": "specific LCD/NCD/NCCI edit number and section (e.g., 'LCD L12345 3.2, NCCI PTP edit 27130-27447')",
       "implementation_steps": [
         "Step 1: Specific action with exact field/form location (e.g., 'In claim line 2, locate the Modifier field')",
         "Step 2: Specific action with exact value (e.g., 'Enter modifier 59 to indicate distinct procedural service')",
@@ -407,13 +407,13 @@ REQUIRED OUTPUT FORMAT (valid JSON only):
 }}
 
 EXAMPLES OF GOOD CORRECTIONS:
-✓ Field: "procedure_modifier" | Current: "none" | Suggested: "59" | Rationale: "NCCI PTP edit requires modifier 59 to bypass bundling" | Steps: ["Open claim line for CPT {proc_code}", "Add modifier 59 to indicate distinct procedural service", "Attach operative note documenting separate incision site"]
-✓ Field: "primary_diagnosis" | Current: "{dx_code}" | Suggested: "Add covered diagnosis from LCD L33822" | Rationale: "{dx_code} is not in LCD covered codes list" | Steps: ["Review LCD L33822 Table 1", "Select appropriate covered diagnosis", "Reorder diagnoses with covered code first"]
+ Field: "procedure_modifier" | Current: "none" | Suggested: "59" | Rationale: "NCCI PTP edit requires modifier 59 to bypass bundling" | Steps: ["Open claim line for CPT {proc_code}", "Add modifier 59 to indicate distinct procedural service", "Attach operative note documenting separate incision site"]
+ Field: "primary_diagnosis" | Current: "{dx_code}" | Suggested: "Add covered diagnosis from LCD L33822" | Rationale: "{dx_code} is not in LCD covered codes list" | Steps: ["Review LCD L33822 Table 1", "Select appropriate covered diagnosis", "Reorder diagnoses with covered code first"]
 
 EXAMPLES OF BAD CORRECTIONS (AVOID):
-✗ "Revise the LCD to include {dx_code}" → Providers cannot modify LCDs, only comply with them
-✗ "Remove modifier from {dx_code}" → Cannot apply modifiers to diagnoses (only to procedures)
-✗ "Review medical records" → Too vague; specify what documentation to look for
+ "Revise the LCD to include {dx_code}"  Providers cannot modify LCDs, only comply with them
+ "Remove modifier from {dx_code}"  Cannot apply modifiers to diagnoses (only to procedures)
+ "Review medical records"  Too vague; specify what documentation to look for
 
 Focus on clear, specific, implementable actions that will get the claim paid.
 """
@@ -481,7 +481,7 @@ Focus on clear, specific, implementable actions that will get the claim paid.
         for idx, issue in enumerate(issues, 1):
             dx = issue.get('icd10_code') or issue.get('icd9_code', 'Unknown')
             proc = issue.get('hcpcs_code', 'Unknown')
-            print(f"\n📋 Processing issue {idx}/{len(issues)}: DX={dx}, PROC={proc}")
+            print(f"\n Processing issue {idx}/{len(issues)}: DX={dx}, PROC={proc}")
             
             res = self._stage2(issue, stage1)
             i2 = issue.copy()
@@ -514,7 +514,7 @@ Enhanced Archetype-Driven Claim Corrector v3.0
 ==============================================
 
 Key updates vs v2:
-- ICD version–aware SQL for DX-driven archetypes (ICD-10 or ICD-9)
+- ICD versionaware SQL for DX-driven archetypes (ICD-10 or ICD-9)
 - GEMs-based fallback mapping when direct version returns 0 rows
 - Adds Secondary_DX_Not_Covered definition explicitly
 """
@@ -856,12 +856,12 @@ class ArchetypeDrivenClaimCorrectorV3:
         # Build code type information
         code_info = f"""
 CODE IDENTIFICATION:
-- PROCEDURE CODE (CPT/HCPCS): {proc_code} → Use for: modifier checks, PTP edits, MUE review, prior auth, bundling
-- DIAGNOSIS CODE (ICD-10/ICD-9): {dx_code} → Use for: coverage validation, medical necessity, LCD/NCD compliance
+- PROCEDURE CODE (CPT/HCPCS): {proc_code}  Use for: modifier checks, PTP edits, MUE review, prior auth, bundling
+- DIAGNOSIS CODE (ICD-10/ICD-9): {dx_code}  Use for: coverage validation, medical necessity, LCD/NCD compliance
 
 CRITICAL RULES:
 1. Modifiers (59, 25, XE, XS, XP, XU) apply ONLY to PROCEDURE codes, NEVER to DIAGNOSIS codes
-2. If a code starts with a letter and is ≤7 chars (e.g., M16.11, Z99.89), it is ICD - do NOT assign modifiers
+2. If a code starts with a letter and is 7 chars (e.g., M16.11, Z99.89), it is ICD - do NOT assign modifiers
 3. Only 5-digit numeric or alphanumeric codes (e.g., 27130, G0299) are procedures that can have modifiers
 """
         
@@ -902,7 +902,7 @@ REQUIRED OUTPUT FORMAT (valid JSON only):
       "current_value": "what is currently on the claim",
       "suggested_value": "exact new value to enter or add",
       "rationale": "why this change is needed based on CMS policy",
-      "policy_citation": "specific LCD/NCD/NCCI edit number and section (e.g., 'LCD L12345 §3.2, NCCI PTP edit 27130-27447')",
+      "policy_citation": "specific LCD/NCD/NCCI edit number and section (e.g., 'LCD L12345 3.2, NCCI PTP edit 27130-27447')",
       "implementation_steps": [
         "Step 1: Specific action with exact field/form location (e.g., 'In claim line 2, locate the Modifier field')",
         "Step 2: Specific action with exact value (e.g., 'Enter modifier 59 to indicate distinct procedural service')",
@@ -917,13 +917,13 @@ REQUIRED OUTPUT FORMAT (valid JSON only):
 }}
 
 EXAMPLES OF GOOD CORRECTIONS:
-✓ Field: "procedure_modifier" | Current: "none" | Suggested: "59" | Rationale: "NCCI PTP edit requires modifier 59 to bypass bundling" | Steps: ["Open claim line for CPT {proc_code}", "Add modifier 59 to indicate distinct procedural service", "Attach operative note documenting separate incision site"]
-✓ Field: "primary_diagnosis" | Current: "{dx_code}" | Suggested: "Add covered diagnosis from LCD L33822" | Rationale: "{dx_code} is not in LCD covered codes list" | Steps: ["Review LCD L33822 Table 1", "Select appropriate covered diagnosis", "Reorder diagnoses with covered code first"]
+ Field: "procedure_modifier" | Current: "none" | Suggested: "59" | Rationale: "NCCI PTP edit requires modifier 59 to bypass bundling" | Steps: ["Open claim line for CPT {proc_code}", "Add modifier 59 to indicate distinct procedural service", "Attach operative note documenting separate incision site"]
+ Field: "primary_diagnosis" | Current: "{dx_code}" | Suggested: "Add covered diagnosis from LCD L33822" | Rationale: "{dx_code} is not in LCD covered codes list" | Steps: ["Review LCD L33822 Table 1", "Select appropriate covered diagnosis", "Reorder diagnoses with covered code first"]
 
 EXAMPLES OF BAD CORRECTIONS (AVOID):
-✗ "Revise the LCD to include {dx_code}" → Providers cannot modify LCDs, only comply with them
-✗ "Remove modifier from {dx_code}" → Cannot apply modifiers to diagnoses (only to procedures)
-✗ "Review medical records" → Too vague; specify what documentation to look for
+ "Revise the LCD to include {dx_code}"  Providers cannot modify LCDs, only comply with them
+ "Remove modifier from {dx_code}"  Cannot apply modifiers to diagnoses (only to procedures)
+ "Review medical records"  Too vague; specify what documentation to look for
 
 Focus on clear, specific, implementable actions that will get the claim paid.
 """
@@ -991,7 +991,7 @@ Focus on clear, specific, implementable actions that will get the claim paid.
         for idx, issue in enumerate(issues, 1):
             dx = issue.get('icd10_code') or issue.get('icd9_code', 'Unknown')
             proc = issue.get('hcpcs_code', 'Unknown')
-            print(f"\n📋 Processing issue {idx}/{len(issues)}: DX={dx}, PROC={proc}")
+            print(f"\n Processing issue {idx}/{len(issues)}: DX={dx}, PROC={proc}")
             
             res = self._stage2(issue, stage1)
             i2 = issue.copy()
@@ -1026,7 +1026,7 @@ Enhanced Archetype-Driven Claim Corrector v3.0
 ==============================================
 
 Key updates vs v2:
-- ICD version–aware SQL for DX-driven archetypes (ICD-10 or ICD-9)
+- ICD versionaware SQL for DX-driven archetypes (ICD-10 or ICD-9)
 - GEMs-based fallback mapping when direct version returns 0 rows
 - Adds Secondary_DX_Not_Covered definition explicitly
 """
@@ -1368,12 +1368,12 @@ class ArchetypeDrivenClaimCorrectorV3:
         # Build code type information
         code_info = f"""
 CODE IDENTIFICATION:
-- PROCEDURE CODE (CPT/HCPCS): {proc_code} → Use for: modifier checks, PTP edits, MUE review, prior auth, bundling
-- DIAGNOSIS CODE (ICD-10/ICD-9): {dx_code} → Use for: coverage validation, medical necessity, LCD/NCD compliance
+- PROCEDURE CODE (CPT/HCPCS): {proc_code}  Use for: modifier checks, PTP edits, MUE review, prior auth, bundling
+- DIAGNOSIS CODE (ICD-10/ICD-9): {dx_code}  Use for: coverage validation, medical necessity, LCD/NCD compliance
 
 CRITICAL RULES:
 1. Modifiers (59, 25, XE, XS, XP, XU) apply ONLY to PROCEDURE codes, NEVER to DIAGNOSIS codes
-2. If a code starts with a letter and is ≤7 chars (e.g., M16.11, Z99.89), it is ICD - do NOT assign modifiers
+2. If a code starts with a letter and is 7 chars (e.g., M16.11, Z99.89), it is ICD - do NOT assign modifiers
 3. Only 5-digit numeric or alphanumeric codes (e.g., 27130, G0299) are procedures that can have modifiers
 """
         
@@ -1414,7 +1414,7 @@ REQUIRED OUTPUT FORMAT (valid JSON only):
       "current_value": "what is currently on the claim",
       "suggested_value": "exact new value to enter or add",
       "rationale": "why this change is needed based on CMS policy",
-      "policy_citation": "specific LCD/NCD/NCCI edit number and section (e.g., 'LCD L12345 §3.2, NCCI PTP edit 27130-27447')",
+      "policy_citation": "specific LCD/NCD/NCCI edit number and section (e.g., 'LCD L12345 3.2, NCCI PTP edit 27130-27447')",
       "implementation_steps": [
         "Step 1: Specific action with exact field/form location (e.g., 'In claim line 2, locate the Modifier field')",
         "Step 2: Specific action with exact value (e.g., 'Enter modifier 59 to indicate distinct procedural service')",
@@ -1429,13 +1429,13 @@ REQUIRED OUTPUT FORMAT (valid JSON only):
 }}
 
 EXAMPLES OF GOOD CORRECTIONS:
-✓ Field: "procedure_modifier" | Current: "none" | Suggested: "59" | Rationale: "NCCI PTP edit requires modifier 59 to bypass bundling" | Steps: ["Open claim line for CPT {proc_code}", "Add modifier 59 to indicate distinct procedural service", "Attach operative note documenting separate incision site"]
-✓ Field: "primary_diagnosis" | Current: "{dx_code}" | Suggested: "Add covered diagnosis from LCD L33822" | Rationale: "{dx_code} is not in LCD covered codes list" | Steps: ["Review LCD L33822 Table 1", "Select appropriate covered diagnosis", "Reorder diagnoses with covered code first"]
+ Field: "procedure_modifier" | Current: "none" | Suggested: "59" | Rationale: "NCCI PTP edit requires modifier 59 to bypass bundling" | Steps: ["Open claim line for CPT {proc_code}", "Add modifier 59 to indicate distinct procedural service", "Attach operative note documenting separate incision site"]
+ Field: "primary_diagnosis" | Current: "{dx_code}" | Suggested: "Add covered diagnosis from LCD L33822" | Rationale: "{dx_code} is not in LCD covered codes list" | Steps: ["Review LCD L33822 Table 1", "Select appropriate covered diagnosis", "Reorder diagnoses with covered code first"]
 
 EXAMPLES OF BAD CORRECTIONS (AVOID):
-✗ "Revise the LCD to include {dx_code}" → Providers cannot modify LCDs, only comply with them
-✗ "Remove modifier from {dx_code}" → Cannot apply modifiers to diagnoses (only to procedures)
-✗ "Review medical records" → Too vague; specify what documentation to look for
+ "Revise the LCD to include {dx_code}"  Providers cannot modify LCDs, only comply with them
+ "Remove modifier from {dx_code}"  Cannot apply modifiers to diagnoses (only to procedures)
+ "Review medical records"  Too vague; specify what documentation to look for
 
 Focus on clear, specific, implementable actions that will get the claim paid.
 """
@@ -1503,7 +1503,7 @@ Focus on clear, specific, implementable actions that will get the claim paid.
         for idx, issue in enumerate(issues, 1):
             dx = issue.get('icd10_code') or issue.get('icd9_code', 'Unknown')
             proc = issue.get('hcpcs_code', 'Unknown')
-            print(f"\n📋 Processing issue {idx}/{len(issues)}: DX={dx}, PROC={proc}")
+            print(f"\n Processing issue {idx}/{len(issues)}: DX={dx}, PROC={proc}")
             
             res = self._stage2(issue, stage1)
             i2 = issue.copy()
@@ -1536,7 +1536,7 @@ Enhanced Archetype-Driven Claim Corrector v3.0
 ==============================================
 
 Key updates vs v2:
-- ICD version–aware SQL for DX-driven archetypes (ICD-10 or ICD-9)
+- ICD versionaware SQL for DX-driven archetypes (ICD-10 or ICD-9)
 - GEMs-based fallback mapping when direct version returns 0 rows
 - Adds Secondary_DX_Not_Covered definition explicitly
 """
@@ -1878,12 +1878,12 @@ class ArchetypeDrivenClaimCorrectorV3:
         # Build code type information
         code_info = f"""
 CODE IDENTIFICATION:
-- PROCEDURE CODE (CPT/HCPCS): {proc_code} → Use for: modifier checks, PTP edits, MUE review, prior auth, bundling
-- DIAGNOSIS CODE (ICD-10/ICD-9): {dx_code} → Use for: coverage validation, medical necessity, LCD/NCD compliance
+- PROCEDURE CODE (CPT/HCPCS): {proc_code}  Use for: modifier checks, PTP edits, MUE review, prior auth, bundling
+- DIAGNOSIS CODE (ICD-10/ICD-9): {dx_code}  Use for: coverage validation, medical necessity, LCD/NCD compliance
 
 CRITICAL RULES:
 1. Modifiers (59, 25, XE, XS, XP, XU) apply ONLY to PROCEDURE codes, NEVER to DIAGNOSIS codes
-2. If a code starts with a letter and is ≤7 chars (e.g., M16.11, Z99.89), it is ICD - do NOT assign modifiers
+2. If a code starts with a letter and is 7 chars (e.g., M16.11, Z99.89), it is ICD - do NOT assign modifiers
 3. Only 5-digit numeric or alphanumeric codes (e.g., 27130, G0299) are procedures that can have modifiers
 """
         
@@ -1924,7 +1924,7 @@ REQUIRED OUTPUT FORMAT (valid JSON only):
       "current_value": "what is currently on the claim",
       "suggested_value": "exact new value to enter or add",
       "rationale": "why this change is needed based on CMS policy",
-      "policy_citation": "specific LCD/NCD/NCCI edit number and section (e.g., 'LCD L12345 §3.2, NCCI PTP edit 27130-27447')",
+      "policy_citation": "specific LCD/NCD/NCCI edit number and section (e.g., 'LCD L12345 3.2, NCCI PTP edit 27130-27447')",
       "implementation_steps": [
         "Step 1: Specific action with exact field/form location (e.g., 'In claim line 2, locate the Modifier field')",
         "Step 2: Specific action with exact value (e.g., 'Enter modifier 59 to indicate distinct procedural service')",
@@ -1939,13 +1939,13 @@ REQUIRED OUTPUT FORMAT (valid JSON only):
 }}
 
 EXAMPLES OF GOOD CORRECTIONS:
-✓ Field: "procedure_modifier" | Current: "none" | Suggested: "59" | Rationale: "NCCI PTP edit requires modifier 59 to bypass bundling" | Steps: ["Open claim line for CPT {proc_code}", "Add modifier 59 to indicate distinct procedural service", "Attach operative note documenting separate incision site"]
-✓ Field: "primary_diagnosis" | Current: "{dx_code}" | Suggested: "Add covered diagnosis from LCD L33822" | Rationale: "{dx_code} is not in LCD covered codes list" | Steps: ["Review LCD L33822 Table 1", "Select appropriate covered diagnosis", "Reorder diagnoses with covered code first"]
+ Field: "procedure_modifier" | Current: "none" | Suggested: "59" | Rationale: "NCCI PTP edit requires modifier 59 to bypass bundling" | Steps: ["Open claim line for CPT {proc_code}", "Add modifier 59 to indicate distinct procedural service", "Attach operative note documenting separate incision site"]
+ Field: "primary_diagnosis" | Current: "{dx_code}" | Suggested: "Add covered diagnosis from LCD L33822" | Rationale: "{dx_code} is not in LCD covered codes list" | Steps: ["Review LCD L33822 Table 1", "Select appropriate covered diagnosis", "Reorder diagnoses with covered code first"]
 
 EXAMPLES OF BAD CORRECTIONS (AVOID):
-✗ "Revise the LCD to include {dx_code}" → Providers cannot modify LCDs, only comply with them
-✗ "Remove modifier from {dx_code}" → Cannot apply modifiers to diagnoses (only to procedures)
-✗ "Review medical records" → Too vague; specify what documentation to look for
+ "Revise the LCD to include {dx_code}"  Providers cannot modify LCDs, only comply with them
+ "Remove modifier from {dx_code}"  Cannot apply modifiers to diagnoses (only to procedures)
+ "Review medical records"  Too vague; specify what documentation to look for
 
 Focus on clear, specific, implementable actions that will get the claim paid.
 """
@@ -2013,7 +2013,7 @@ Focus on clear, specific, implementable actions that will get the claim paid.
         for idx, issue in enumerate(issues, 1):
             dx = issue.get('icd10_code') or issue.get('icd9_code', 'Unknown')
             proc = issue.get('hcpcs_code', 'Unknown')
-            print(f"\n📋 Processing issue {idx}/{len(issues)}: DX={dx}, PROC={proc}")
+            print(f"\n Processing issue {idx}/{len(issues)}: DX={dx}, PROC={proc}")
             
             res = self._stage2(issue, stage1)
             i2 = issue.copy()

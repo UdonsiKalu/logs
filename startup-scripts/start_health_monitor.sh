@@ -117,9 +117,9 @@ check_gpu() {
     if command -v nvidia-smi &> /dev/null; then
         local gpu_temp=$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits | head -1)
         if [ "$gpu_temp" -gt 80 ]; then
-            alert "High GPU temperature: ${gpu_temp}°C"
+            alert "High GPU temperature: ${gpu_temp}C"
         else
-            log "GPU temperature: ${gpu_temp}°C (OK)"
+            log "GPU temperature: ${gpu_temp}C (OK)"
         fi
         
         local gpu_mem=$(nvidia-smi --query-gpu=memory.used,memory.total --format=csv,noheader,nounits | head -1)

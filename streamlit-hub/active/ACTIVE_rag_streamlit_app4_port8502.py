@@ -169,7 +169,7 @@ with st.expander("Example Questions"):
     examples = EXAMPLE_QUESTIONS.get(selected_collection_name, [])
     if examples:
         for example in examples:
-            st.write(f"• {example}")
+            st.write(f" {example}")
     else:
         st.write("No example questions available for this collection.")
 

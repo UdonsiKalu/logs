@@ -6,7 +6,7 @@ from faiss_gpu import CMSDenialAnalyzer
 
 st.set_page_config(page_title="CMS Denial Analyzer", layout="wide")
 
-st.title("🩺 CMS Denial Analyzer")
+st.title(" CMS Denial Analyzer")
 st.markdown("Paste a single claim or upload a batch file in `.json` or `.jsonl` format.")
 
 # --- Cache the analyzer so FAISS loads only once ---
@@ -18,7 +18,7 @@ analyzer = get_analyzer()
 
 
 # --- Manual Input ---
-with st.expander("➕ Paste a Single Claim (JSON)", expanded=True):
+with st.expander(" Paste a Single Claim (JSON)", expanded=True):
     default = '''{
   "cpt_code": "99213",
   "diagnosis": "E11.9",
@@ -38,10 +38,10 @@ def display_result(result, output_placeholder):
         parsed = result
 
     if isinstance(parsed, dict):
-        output_placeholder.markdown(f"### 🧮 Risk Score: `{parsed.get('risk_score', 'N/A')}`")
+        output_placeholder.markdown(f"###  Risk Score: `{parsed.get('risk_score', 'N/A')}`")
 
         if 'potential_denial_reasons' in parsed:
-            output_placeholder.markdown("**🚫 Potential Denial Reasons:**")
+            output_placeholder.markdown("** Potential Denial Reasons:**")
             for reason in parsed['potential_denial_reasons']:
                 output_placeholder.markdown(f"- {reason}")
 
@@ -51,7 +51,7 @@ def display_result(result, output_placeholder):
                 output_placeholder.markdown(f"- {correction}")
 
         if 'appeal_excerpts' in parsed:
-            output_placeholder.markdown("**📄 Appeal Excerpts:**")
+            output_placeholder.markdown("** Appeal Excerpts:**")
             for excerpt in parsed['appeal_excerpts']:
                 output_placeholder.markdown(f"- {excerpt}")
     else:

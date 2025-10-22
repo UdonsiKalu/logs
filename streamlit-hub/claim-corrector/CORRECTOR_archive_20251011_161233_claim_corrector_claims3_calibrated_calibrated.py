@@ -160,7 +160,7 @@ class CalibratedClaimCorrector:
 
         enriched_issues = []
         for issue in issues:
-            print(f"\n📋 Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
+            print(f"\n Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
             
             #  Get dynamic CPT description from database
             cpt_code = issue.get('hcpcs_code', '')
@@ -177,7 +177,7 @@ class CalibratedClaimCorrector:
             
             #  DEDUPLICATE and VALIDATE policies before LLM processing
             validated_policies = self._validate_and_deduplicate_policies(all_policies, issue)
-            print(f"   📚 Retrieved {len(all_policies)} policies, {len(validated_policies)} after validation & deduplication")
+            print(f"    Retrieved {len(all_policies)} policies, {len(validated_policies)} after validation & deduplication")
             
             #  Calculate dynamic metadata per combo
             dynamic_metadata = self._calculate_dynamic_metadata(issue, validated_policies)
@@ -786,7 +786,7 @@ class CalibratedClaimCorrector:
 
         enriched_issues = []
         for issue in issues:
-            print(f"\n📋 Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
+            print(f"\n Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
             
             #  Get dynamic CPT description from database
             cpt_code = issue.get('hcpcs_code', '')
@@ -803,7 +803,7 @@ class CalibratedClaimCorrector:
             
             #  DEDUPLICATE and VALIDATE policies before LLM processing
             validated_policies = self._validate_and_deduplicate_policies(all_policies, issue)
-            print(f"   📚 Retrieved {len(all_policies)} policies, {len(validated_policies)} after validation & deduplication")
+            print(f"    Retrieved {len(all_policies)} policies, {len(validated_policies)} after validation & deduplication")
             
             #  Calculate dynamic metadata per combo
             dynamic_metadata = self._calculate_dynamic_metadata(issue, validated_policies)

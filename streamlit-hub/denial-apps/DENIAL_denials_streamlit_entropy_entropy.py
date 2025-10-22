@@ -32,7 +32,7 @@ if uploaded_file:
         df_filtered["page"] = "0"
 
     # Bar chart: Retrieval frequency per chunk
-    st.subheader("🔢 Retrieval Frequency by Chunk")
+    st.subheader(" Retrieval Frequency by Chunk")
     fig = px.bar(df_filtered.sort_values("retrieval_count", ascending=False).head(50),
                  x="chunk_id", y="retrieval_count",
                  color="source",
@@ -41,7 +41,7 @@ if uploaded_file:
     st.plotly_chart(fig, use_container_width=True)
 
     # Heatmap: Source vs Page retrieval distribution
-    st.subheader("🔥 Retrieval Density by Document Section")
+    st.subheader(" Retrieval Density by Document Section")
     heat_df = df_filtered.copy()
     heat_df["page"] = heat_df["page"].str.extract(r'(\d+)').astype(float)
     heatmap = px.density_heatmap(heat_df, x="page", y="source",
@@ -50,7 +50,7 @@ if uploaded_file:
     st.plotly_chart(heatmap, use_container_width=True)
 
     # Table view
-    st.subheader("📋 Raw Entropy Table")
+    st.subheader(" Raw Entropy Table")
     st.dataframe(df_filtered.sort_values("retrieval_count", ascending=False), use_container_width=True)
 else:
-    st.info("⬆️ Upload an entropy map CSV to get started.")
+    st.info(" Upload an entropy map CSV to get started.")

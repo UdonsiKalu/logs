@@ -602,7 +602,7 @@ class ClaimAnalysisApp:
                         st.markdown(f'''
                         <div class="issue-item">
                             <div class="issue-header">
-                                DX {row['dx_position']}: {row['icd9_dgns_code']} → {row['mapped_icd10_code']} | 
+                                DX {row['dx_position']}: {row['icd9_dgns_code']}  {row['mapped_icd10_code']} | 
                                 Procedure {row['hcpcs_position']}: {row['hcpcs_code']}
                             </div>
                             <div class="issue-details">
@@ -622,7 +622,7 @@ class ClaimAnalysisApp:
                         st.markdown(f'''
                         <div class="issue-item">
                             <div class="issue-header">
-                                DX {row['dx_position']}: {row['icd9_dgns_code']} → {row['mapped_icd10_code']} | 
+                                DX {row['dx_position']}: {row['icd9_dgns_code']}  {row['mapped_icd10_code']} | 
                                 Procedure {row['hcpcs_position']}: {row['hcpcs_code']}
                             </div>
                             <div class="issue-details">
@@ -641,7 +641,7 @@ class ClaimAnalysisApp:
                         st.markdown(f'''
                         <div class="issue-item">
                             <div class="issue-header">
-                                DX {row['dx_position']}: {row['icd9_dgns_code']} → {row['mapped_icd10_code']} | 
+                                DX {row['dx_position']}: {row['icd9_dgns_code']}  {row['mapped_icd10_code']} | 
                                 Procedure {row['hcpcs_position']}: {row['hcpcs_code']}
                             </div>
                             <div class="issue-details">
@@ -660,7 +660,7 @@ class ClaimAnalysisApp:
                         st.markdown(f'''
                         <div class="issue-item">
                             <div class="issue-header">
-                                DX {row['dx_position']}: {row['icd9_dgns_code']} → {row['mapped_icd10_code']} | 
+                                DX {row['dx_position']}: {row['icd9_dgns_code']}  {row['mapped_icd10_code']} | 
                                 Procedure {row['hcpcs_position']}: {row['hcpcs_code']}
                             </div>
                             <div class="issue-details">
@@ -702,7 +702,7 @@ class ClaimAnalysisApp:
                         st.markdown(f'''
                         <div class="fix-item">
                             <div class="fix-header">
-                                {fix_count}. DIAGNOSIS {row['icd9_dgns_code']} → PROCEDURE {row['hcpcs_code']}
+                                {fix_count}. DIAGNOSIS {row['icd9_dgns_code']}  PROCEDURE {row['hcpcs_code']}
                             </div>
                             <div class="fix-details">
                                 <strong>Issue:</strong> {row['denial_risk_level']}<br>
@@ -720,7 +720,7 @@ class ClaimAnalysisApp:
                         st.markdown(f'''
                         <div class="fix-item">
                             <div class="fix-header">
-                                {fix_count}. DIAGNOSIS {row['icd9_dgns_code']} → PROCEDURE {row['hcpcs_code']}
+                                {fix_count}. DIAGNOSIS {row['icd9_dgns_code']}  PROCEDURE {row['hcpcs_code']}
                             </div>
                             <div class="fix-details">
                                 <strong>Issue:</strong> {row['denial_risk_level']}<br>
@@ -737,7 +737,7 @@ class ClaimAnalysisApp:
                         st.markdown(f'''
                         <div class="fix-item">
                             <div class="fix-header">
-                                {fix_count}. DIAGNOSIS {row['icd9_dgns_code']} → PROCEDURE {row['hcpcs_code']}
+                                {fix_count}. DIAGNOSIS {row['icd9_dgns_code']}  PROCEDURE {row['hcpcs_code']}
                             </div>
                             <div class="fix-details">
                                 <strong>Issue:</strong> {row['denial_risk_level']}<br>
@@ -754,7 +754,7 @@ class ClaimAnalysisApp:
                         st.markdown(f'''
                         <div class="fix-item">
                             <div class="fix-header">
-                                {fix_count}. DIAGNOSIS {row['icd9_dgns_code']} → PROCEDURE {row['hcpcs_code']}
+                                {fix_count}. DIAGNOSIS {row['icd9_dgns_code']}  PROCEDURE {row['hcpcs_code']}
                             </div>
                             <div class="fix-details">
                                 <strong>Issue:</strong> {row['denial_risk_level']}<br>

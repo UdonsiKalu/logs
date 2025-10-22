@@ -77,7 +77,7 @@ class ClaimCorrector:
                 if any(k in c.lower() for k in ["policy", "policies", "manual", "cms", "lcd", "ncd"])
             ]
             if not self.policy_collections:
-                print(" No policy-type collections detected — using fallback ['cms_policies']")
+                print(" No policy-type collections detected  using fallback ['cms_policies']")
                 self.policy_collections = ["cms_policies"]
             else:
                 print(f" Detected policy collections: {self.policy_collections}")

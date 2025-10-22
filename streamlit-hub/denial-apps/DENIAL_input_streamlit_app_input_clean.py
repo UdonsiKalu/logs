@@ -8,11 +8,11 @@ analyzer = CMSDenialAnalyzer()
 
 st.set_page_config(page_title="CMS Denial Analyzer", layout="wide")
 
-st.title("🩺 CMS Denial Analyzer")
+st.title(" CMS Denial Analyzer")
 st.markdown("Paste a single claim or upload a batch file in `.json` or `.jsonl` format.")
 
 # --- Manual Input ---
-with st.expander("➕ Paste a Single Claim (JSON)", expanded=True):
+with st.expander(" Paste a Single Claim (JSON)", expanded=True):
     default = '''{
   "cpt_code": "99213",
   "diagnosis": "E11.9",

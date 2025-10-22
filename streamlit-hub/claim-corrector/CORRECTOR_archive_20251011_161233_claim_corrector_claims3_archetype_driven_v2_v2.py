@@ -76,7 +76,7 @@ ARCHETYPE_DEFINITIONS = {
             "Split procedures into separate claim lines.",
             "Verify same-day compatibility using NCCI table."
         ],
-        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, §E.1"
+        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, E.1"
     },
 
     "Primary_DX_Not_Covered": {
@@ -107,7 +107,7 @@ ARCHETYPE_DEFINITIONS = {
             "Replace the ICD-10 diagnosis with a covered one per LCD crosswalk.",
             "Validate medical necessity using LCD/NCD coverage criteria."
         ],
-        "sample_reference": "LCD L34696 – Fracture and Bone Imaging Coverage"
+        "sample_reference": "LCD L34696  Fracture and Bone Imaging Coverage"
     },
 
     "MUE_Risk": {
@@ -130,11 +130,11 @@ ARCHETYPE_DEFINITIONS = {
         """,
         "sql_insight": "Retrieves MUE thresholds for the given CPT/HCPCS code.",
         "correction_strategies": [
-            "Reduce billed units to ≤ MUE limit.",
+            "Reduce billed units to  MUE limit.",
             "Include justification documentation.",
             "Check if MUE has MAI of 1 (line edit) or 2/3 (date-of-service edit)."
         ],
-        "sample_reference": "CMS NCCI MUE Table – Transmittal 12674"
+        "sample_reference": "CMS NCCI MUE Table  Transmittal 12674"
     },
 
     "Bundled_Payment_Conflict": {
@@ -290,7 +290,7 @@ ARCHETYPE_DEFINITIONS = {
         "correction_strategies": [
             "Maintain documentation and proceed with billing."
         ],
-        "sample_reference": "CMS Claims Processing Manual, Ch.12 §40"
+        "sample_reference": "CMS Claims Processing Manual, Ch.12 40"
     }
 }
 
@@ -312,7 +312,7 @@ CLAIM DATA:
 - Patient ID: {patient_id}
 - Provider ID: {provider_id}
 - Service Date: {service_date}
-- Primary Diagnosis: {primary_diagnosis} ({icd9_code} → {icd10_code})
+- Primary Diagnosis: {primary_diagnosis} ({icd9_code}  {icd10_code})
 - Primary Procedure: {primary_procedure} ({hcpcs_code})
 - Denial Risk Level: {denial_risk_level}
 - Risk Score: {risk_score}
@@ -634,7 +634,7 @@ class ArchetypeDrivenClaimCorrectorV2:
                     result['collection'] = collection_name
                     all_results.append(result)
                 
-                print(f"   📚 Found {len(search_result)} results in {collection_name}")
+                print(f"    Found {len(search_result)} results in {collection_name}")
                 
             except Exception as e:
                 print(f"    Search failed in {collection_name}: {e}")
@@ -713,7 +713,7 @@ class ArchetypeDrivenClaimCorrectorV2:
         )
         
         try:
-            print(f"   🤖 Running SQL-driven archetype Stage 2 LLM for '{archetype}'...")
+            print(f"    Running SQL-driven archetype Stage 2 LLM for '{archetype}'...")
             
             response = ollama.generate(
                 model="mistral",
@@ -752,19 +752,19 @@ class ArchetypeDrivenClaimCorrectorV2:
         archetype, archetype_info = self._detect_archetype(issue)
         print(f"    Stage 2: Detected archetype '{archetype}' - {archetype_info['description']}")
         
-        # 🗄️ STEP 1: Gather SQL evidence for this archetype based on code combinations
+        #  STEP 1: Gather SQL evidence for this archetype based on code combinations
         codes = {
             'hcpcs_code': issue.get('hcpcs_code', ''),
             'icd9_code': issue.get('icd9_code', ''),
             'icd10_code': issue.get('icd10_code', '')
         }
         sql_evidence = self.sql_connector.execute_archetype_query(archetype, codes)
-        print(f"   🗄️ Stage 2: Retrieved {len(sql_evidence)} SQL evidence records for archetype '{archetype}'")
+        print(f"    Stage 2: Retrieved {len(sql_evidence)} SQL evidence records for archetype '{archetype}'")
         
-        # 📚 STEP 2: Search for archetype-specific correction policies
+        #  STEP 2: Search for archetype-specific correction policies
         correction_policies = self._search_archetype_corrections(issue, archetype)
         
-        # 🤖 STEP 3: Run SQL-driven archetype Stage 2 LLM analysis
+        #  STEP 3: Run SQL-driven archetype Stage 2 LLM analysis
         stage2_analysis = self._run_sql_driven_archetype_stage2_llm(issue, stage1_result, correction_policies, archetype, sql_evidence)
         
         return {
@@ -797,7 +797,7 @@ class ArchetypeDrivenClaimCorrectorV2:
         # Stage 2: Process each issue with archetype-driven corrections
         enriched_issues = []
         for i, issue in enumerate(stage1_result['enriched_issues'], 1):
-            print(f"📋 Processing issue {i}: {issue.get('hcpcs_code', '')} + {issue.get('icd9_code', '')}")
+            print(f" Processing issue {i}: {issue.get('hcpcs_code', '')} + {issue.get('icd9_code', '')}")
             
             # Run Stage 2 archetype corrective reasoning
             stage2_result = self._stage2_archetype_corrective_reasoning(issue, stage1_result)
@@ -922,7 +922,7 @@ ARCHETYPE_DEFINITIONS = {
             "Split procedures into separate claim lines.",
             "Verify same-day compatibility using NCCI table."
         ],
-        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, §E.1"
+        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, E.1"
     },
 
     "Primary_DX_Not_Covered": {
@@ -953,7 +953,7 @@ ARCHETYPE_DEFINITIONS = {
             "Replace the ICD-10 diagnosis with a covered one per LCD crosswalk.",
             "Validate medical necessity using LCD/NCD coverage criteria."
         ],
-        "sample_reference": "LCD L34696 – Fracture and Bone Imaging Coverage"
+        "sample_reference": "LCD L34696  Fracture and Bone Imaging Coverage"
     },
 
     "MUE_Risk": {
@@ -976,11 +976,11 @@ ARCHETYPE_DEFINITIONS = {
         """,
         "sql_insight": "Retrieves MUE thresholds for the given CPT/HCPCS code.",
         "correction_strategies": [
-            "Reduce billed units to ≤ MUE limit.",
+            "Reduce billed units to  MUE limit.",
             "Include justification documentation.",
             "Check if MUE has MAI of 1 (line edit) or 2/3 (date-of-service edit)."
         ],
-        "sample_reference": "CMS NCCI MUE Table – Transmittal 12674"
+        "sample_reference": "CMS NCCI MUE Table  Transmittal 12674"
     },
 
     "Bundled_Payment_Conflict": {
@@ -1136,7 +1136,7 @@ ARCHETYPE_DEFINITIONS = {
         "correction_strategies": [
             "Maintain documentation and proceed with billing."
         ],
-        "sample_reference": "CMS Claims Processing Manual, Ch.12 §40"
+        "sample_reference": "CMS Claims Processing Manual, Ch.12 40"
     }
 }
 
@@ -1158,7 +1158,7 @@ CLAIM DATA:
 - Patient ID: {patient_id}
 - Provider ID: {provider_id}
 - Service Date: {service_date}
-- Primary Diagnosis: {primary_diagnosis} ({icd9_code} → {icd10_code})
+- Primary Diagnosis: {primary_diagnosis} ({icd9_code}  {icd10_code})
 - Primary Procedure: {primary_procedure} ({hcpcs_code})
 - Denial Risk Level: {denial_risk_level}
 - Risk Score: {risk_score}
@@ -1480,7 +1480,7 @@ class ArchetypeDrivenClaimCorrectorV2:
                     result['collection'] = collection_name
                     all_results.append(result)
                 
-                print(f"   📚 Found {len(search_result)} results in {collection_name}")
+                print(f"    Found {len(search_result)} results in {collection_name}")
                 
             except Exception as e:
                 print(f"    Search failed in {collection_name}: {e}")
@@ -1559,7 +1559,7 @@ class ArchetypeDrivenClaimCorrectorV2:
         )
         
         try:
-            print(f"   🤖 Running SQL-driven archetype Stage 2 LLM for '{archetype}'...")
+            print(f"    Running SQL-driven archetype Stage 2 LLM for '{archetype}'...")
             
             response = ollama.generate(
                 model="mistral",
@@ -1598,19 +1598,19 @@ class ArchetypeDrivenClaimCorrectorV2:
         archetype, archetype_info = self._detect_archetype(issue)
         print(f"    Stage 2: Detected archetype '{archetype}' - {archetype_info['description']}")
         
-        # 🗄️ STEP 1: Gather SQL evidence for this archetype based on code combinations
+        #  STEP 1: Gather SQL evidence for this archetype based on code combinations
         codes = {
             'hcpcs_code': issue.get('hcpcs_code', ''),
             'icd9_code': issue.get('icd9_code', ''),
             'icd10_code': issue.get('icd10_code', '')
         }
         sql_evidence = self.sql_connector.execute_archetype_query(archetype, codes)
-        print(f"   🗄️ Stage 2: Retrieved {len(sql_evidence)} SQL evidence records for archetype '{archetype}'")
+        print(f"    Stage 2: Retrieved {len(sql_evidence)} SQL evidence records for archetype '{archetype}'")
         
-        # 📚 STEP 2: Search for archetype-specific correction policies
+        #  STEP 2: Search for archetype-specific correction policies
         correction_policies = self._search_archetype_corrections(issue, archetype)
         
-        # 🤖 STEP 3: Run SQL-driven archetype Stage 2 LLM analysis
+        #  STEP 3: Run SQL-driven archetype Stage 2 LLM analysis
         stage2_analysis = self._run_sql_driven_archetype_stage2_llm(issue, stage1_result, correction_policies, archetype, sql_evidence)
         
         return {
@@ -1643,7 +1643,7 @@ class ArchetypeDrivenClaimCorrectorV2:
         # Stage 2: Process each issue with archetype-driven corrections
         enriched_issues = []
         for i, issue in enumerate(stage1_result['enriched_issues'], 1):
-            print(f"📋 Processing issue {i}: {issue.get('hcpcs_code', '')} + {issue.get('icd9_code', '')}")
+            print(f" Processing issue {i}: {issue.get('hcpcs_code', '')} + {issue.get('icd9_code', '')}")
             
             # Run Stage 2 archetype corrective reasoning
             stage2_result = self._stage2_archetype_corrective_reasoning(issue, stage1_result)
@@ -1769,7 +1769,7 @@ ARCHETYPE_DEFINITIONS = {
             "Split procedures into separate claim lines.",
             "Verify same-day compatibility using NCCI table."
         ],
-        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, §E.1"
+        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, E.1"
     },
 
     "Primary_DX_Not_Covered": {
@@ -1800,7 +1800,7 @@ ARCHETYPE_DEFINITIONS = {
             "Replace the ICD-10 diagnosis with a covered one per LCD crosswalk.",
             "Validate medical necessity using LCD/NCD coverage criteria."
         ],
-        "sample_reference": "LCD L34696 – Fracture and Bone Imaging Coverage"
+        "sample_reference": "LCD L34696  Fracture and Bone Imaging Coverage"
     },
 
     "MUE_Risk": {
@@ -1823,11 +1823,11 @@ ARCHETYPE_DEFINITIONS = {
         """,
         "sql_insight": "Retrieves MUE thresholds for the given CPT/HCPCS code.",
         "correction_strategies": [
-            "Reduce billed units to ≤ MUE limit.",
+            "Reduce billed units to  MUE limit.",
             "Include justification documentation.",
             "Check if MUE has MAI of 1 (line edit) or 2/3 (date-of-service edit)."
         ],
-        "sample_reference": "CMS NCCI MUE Table – Transmittal 12674"
+        "sample_reference": "CMS NCCI MUE Table  Transmittal 12674"
     },
 
     "Bundled_Payment_Conflict": {
@@ -1983,7 +1983,7 @@ ARCHETYPE_DEFINITIONS = {
         "correction_strategies": [
             "Maintain documentation and proceed with billing."
         ],
-        "sample_reference": "CMS Claims Processing Manual, Ch.12 §40"
+        "sample_reference": "CMS Claims Processing Manual, Ch.12 40"
     }
 }
 
@@ -2005,7 +2005,7 @@ CLAIM DATA:
 - Patient ID: {patient_id}
 - Provider ID: {provider_id}
 - Service Date: {service_date}
-- Primary Diagnosis: {primary_diagnosis} ({icd9_code} → {icd10_code})
+- Primary Diagnosis: {primary_diagnosis} ({icd9_code}  {icd10_code})
 - Primary Procedure: {primary_procedure} ({hcpcs_code})
 - Denial Risk Level: {denial_risk_level}
 - Risk Score: {risk_score}
@@ -2327,7 +2327,7 @@ class ArchetypeDrivenClaimCorrectorV2:
                     result['collection'] = collection_name
                     all_results.append(result)
                 
-                print(f"   📚 Found {len(search_result)} results in {collection_name}")
+                print(f"    Found {len(search_result)} results in {collection_name}")
                 
             except Exception as e:
                 print(f"    Search failed in {collection_name}: {e}")
@@ -2406,7 +2406,7 @@ class ArchetypeDrivenClaimCorrectorV2:
         )
         
         try:
-            print(f"   🤖 Running SQL-driven archetype Stage 2 LLM for '{archetype}'...")
+            print(f"    Running SQL-driven archetype Stage 2 LLM for '{archetype}'...")
             
             response = ollama.generate(
                 model="mistral",
@@ -2445,19 +2445,19 @@ class ArchetypeDrivenClaimCorrectorV2:
         archetype, archetype_info = self._detect_archetype(issue)
         print(f"    Stage 2: Detected archetype '{archetype}' - {archetype_info['description']}")
         
-        # 🗄️ STEP 1: Gather SQL evidence for this archetype based on code combinations
+        #  STEP 1: Gather SQL evidence for this archetype based on code combinations
         codes = {
             'hcpcs_code': issue.get('hcpcs_code', ''),
             'icd9_code': issue.get('icd9_code', ''),
             'icd10_code': issue.get('icd10_code', '')
         }
         sql_evidence = self.sql_connector.execute_archetype_query(archetype, codes)
-        print(f"   🗄️ Stage 2: Retrieved {len(sql_evidence)} SQL evidence records for archetype '{archetype}'")
+        print(f"    Stage 2: Retrieved {len(sql_evidence)} SQL evidence records for archetype '{archetype}'")
         
-        # 📚 STEP 2: Search for archetype-specific correction policies
+        #  STEP 2: Search for archetype-specific correction policies
         correction_policies = self._search_archetype_corrections(issue, archetype)
         
-        # 🤖 STEP 3: Run SQL-driven archetype Stage 2 LLM analysis
+        #  STEP 3: Run SQL-driven archetype Stage 2 LLM analysis
         stage2_analysis = self._run_sql_driven_archetype_stage2_llm(issue, stage1_result, correction_policies, archetype, sql_evidence)
         
         return {
@@ -2490,7 +2490,7 @@ class ArchetypeDrivenClaimCorrectorV2:
         # Stage 2: Process each issue with archetype-driven corrections
         enriched_issues = []
         for i, issue in enumerate(stage1_result['enriched_issues'], 1):
-            print(f"📋 Processing issue {i}: {issue.get('hcpcs_code', '')} + {issue.get('icd9_code', '')}")
+            print(f" Processing issue {i}: {issue.get('hcpcs_code', '')} + {issue.get('icd9_code', '')}")
             
             # Run Stage 2 archetype corrective reasoning
             stage2_result = self._stage2_archetype_corrective_reasoning(issue, stage1_result)
@@ -2615,7 +2615,7 @@ ARCHETYPE_DEFINITIONS = {
             "Split procedures into separate claim lines.",
             "Verify same-day compatibility using NCCI table."
         ],
-        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, §E.1"
+        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, E.1"
     },
 
     "Primary_DX_Not_Covered": {
@@ -2646,7 +2646,7 @@ ARCHETYPE_DEFINITIONS = {
             "Replace the ICD-10 diagnosis with a covered one per LCD crosswalk.",
             "Validate medical necessity using LCD/NCD coverage criteria."
         ],
-        "sample_reference": "LCD L34696 – Fracture and Bone Imaging Coverage"
+        "sample_reference": "LCD L34696  Fracture and Bone Imaging Coverage"
     },
 
     "MUE_Risk": {
@@ -2669,11 +2669,11 @@ ARCHETYPE_DEFINITIONS = {
         """,
         "sql_insight": "Retrieves MUE thresholds for the given CPT/HCPCS code.",
         "correction_strategies": [
-            "Reduce billed units to ≤ MUE limit.",
+            "Reduce billed units to  MUE limit.",
             "Include justification documentation.",
             "Check if MUE has MAI of 1 (line edit) or 2/3 (date-of-service edit)."
         ],
-        "sample_reference": "CMS NCCI MUE Table – Transmittal 12674"
+        "sample_reference": "CMS NCCI MUE Table  Transmittal 12674"
     },
 
     "Bundled_Payment_Conflict": {
@@ -2829,7 +2829,7 @@ ARCHETYPE_DEFINITIONS = {
         "correction_strategies": [
             "Maintain documentation and proceed with billing."
         ],
-        "sample_reference": "CMS Claims Processing Manual, Ch.12 §40"
+        "sample_reference": "CMS Claims Processing Manual, Ch.12 40"
     }
 }
 
@@ -2851,7 +2851,7 @@ CLAIM DATA:
 - Patient ID: {patient_id}
 - Provider ID: {provider_id}
 - Service Date: {service_date}
-- Primary Diagnosis: {primary_diagnosis} ({icd9_code} → {icd10_code})
+- Primary Diagnosis: {primary_diagnosis} ({icd9_code}  {icd10_code})
 - Primary Procedure: {primary_procedure} ({hcpcs_code})
 - Denial Risk Level: {denial_risk_level}
 - Risk Score: {risk_score}
@@ -3173,7 +3173,7 @@ class ArchetypeDrivenClaimCorrectorV2:
                     result['collection'] = collection_name
                     all_results.append(result)
                 
-                print(f"   📚 Found {len(search_result)} results in {collection_name}")
+                print(f"    Found {len(search_result)} results in {collection_name}")
                 
             except Exception as e:
                 print(f"    Search failed in {collection_name}: {e}")
@@ -3252,7 +3252,7 @@ class ArchetypeDrivenClaimCorrectorV2:
         )
         
         try:
-            print(f"   🤖 Running SQL-driven archetype Stage 2 LLM for '{archetype}'...")
+            print(f"    Running SQL-driven archetype Stage 2 LLM for '{archetype}'...")
             
             response = ollama.generate(
                 model="mistral",
@@ -3291,19 +3291,19 @@ class ArchetypeDrivenClaimCorrectorV2:
         archetype, archetype_info = self._detect_archetype(issue)
         print(f"    Stage 2: Detected archetype '{archetype}' - {archetype_info['description']}")
         
-        # 🗄️ STEP 1: Gather SQL evidence for this archetype based on code combinations
+        #  STEP 1: Gather SQL evidence for this archetype based on code combinations
         codes = {
             'hcpcs_code': issue.get('hcpcs_code', ''),
             'icd9_code': issue.get('icd9_code', ''),
             'icd10_code': issue.get('icd10_code', '')
         }
         sql_evidence = self.sql_connector.execute_archetype_query(archetype, codes)
-        print(f"   🗄️ Stage 2: Retrieved {len(sql_evidence)} SQL evidence records for archetype '{archetype}'")
+        print(f"    Stage 2: Retrieved {len(sql_evidence)} SQL evidence records for archetype '{archetype}'")
         
-        # 📚 STEP 2: Search for archetype-specific correction policies
+        #  STEP 2: Search for archetype-specific correction policies
         correction_policies = self._search_archetype_corrections(issue, archetype)
         
-        # 🤖 STEP 3: Run SQL-driven archetype Stage 2 LLM analysis
+        #  STEP 3: Run SQL-driven archetype Stage 2 LLM analysis
         stage2_analysis = self._run_sql_driven_archetype_stage2_llm(issue, stage1_result, correction_policies, archetype, sql_evidence)
         
         return {
@@ -3336,7 +3336,7 @@ class ArchetypeDrivenClaimCorrectorV2:
         # Stage 2: Process each issue with archetype-driven corrections
         enriched_issues = []
         for i, issue in enumerate(stage1_result['enriched_issues'], 1):
-            print(f"📋 Processing issue {i}: {issue.get('hcpcs_code', '')} + {issue.get('icd9_code', '')}")
+            print(f" Processing issue {i}: {issue.get('hcpcs_code', '')} + {issue.get('icd9_code', '')}")
             
             # Run Stage 2 archetype corrective reasoning
             stage2_result = self._stage2_archetype_corrective_reasoning(issue, stage1_result)

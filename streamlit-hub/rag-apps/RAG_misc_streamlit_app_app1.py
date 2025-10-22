@@ -9,11 +9,11 @@ from rag_query_gpu1 import query_rag
 # -------------------------
 st.set_page_config(
     page_title="CMS RAG QA",
-    page_icon="📘",
+    page_icon="",
     layout="wide"
 )
 
-st.title("📘 CMS Policy Q&A - GPU Accelerated RAG")
+st.title(" CMS Policy Q&A - GPU Accelerated RAG")
 st.caption("Ask CMS policy questions with citations using Qdrant, GPU embeddings, reranker, and Ollama.")
 
 # -------------------------
@@ -25,7 +25,7 @@ reranker_model = os.getenv("RERANKER_MODEL", "BAAI/bge-reranker-large")
 collection = os.getenv("QDRANT_COLLECTION", "cms_policies")
 
 with st.sidebar:
-    st.header("⚙️ Settings")
+    st.header(" Settings")
     st.write(f"**LLM Backend:** {llm_backend}")
     st.write(f"**Embedding Model:** {embedding_model}")
     st.write(f"**Reranker Model:** {reranker_model}")
@@ -79,4 +79,4 @@ if st.button("Search") and query.strip():
                 st.caption(f"File: {d['path']}")
 
 else:
-    st.markdown("💬 **Enter a question and click 'Search' to start.**")
+    st.markdown(" **Enter a question and click 'Search' to start.**")

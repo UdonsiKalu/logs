@@ -70,7 +70,7 @@ ARCHETYPE_DEFINITIONS = {
             "Split procedures into separate claim lines when appropriate.",
             "Verify same-day procedure compatibility per NCCI edits."
         ],
-        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, §E.1"
+        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, E.1"
     },
     "Primary_DX_Not_Covered": {
         "description": "Primary ICD-10 diagnosis is not covered under the relevant LCD or NCD.",
@@ -101,7 +101,7 @@ ARCHETYPE_DEFINITIONS = {
             "Validate medical necessity using LCD/NCD coverage criteria.",
             "Ensure diagnosis supports medical necessity of CPT/HCPCS code."
         ],
-        "sample_reference": "LCD L34696 – Fracture and Bone Imaging Coverage"
+        "sample_reference": "LCD L34696  Fracture and Bone Imaging Coverage"
     },
     "MUE_Risk": {
         "description": "Billed units exceed the Medically Unlikely Edit (MUE) threshold for this HCPCS/CPT code.",
@@ -121,13 +121,13 @@ ARCHETYPE_DEFINITIONS = {
             WHERE ncci.procedure_code = ?
               AND ncci.mue_threshold IS NOT NULL
         """,
-        "sql_insight": "Identifies where claim line units exceed CMS MUE limits and flags corresponding MAI (1–3) levels.",
+        "sql_insight": "Identifies where claim line units exceed CMS MUE limits and flags corresponding MAI (13) levels.",
         "correction_strategies": [
-            "Reduce billed units to ≤ MUE limit for the HCPCS/CPT code.",
+            "Reduce billed units to  MUE limit for the HCPCS/CPT code.",
             "Include medical necessity documentation for exceeding MUE threshold.",
             "Verify if MUE has MAI of 1 (line edit) or 2/3 (date of service edit)."
         ],
-        "sample_reference": "NCCI MUE Table – CMS Transmittal 12674"
+        "sample_reference": "NCCI MUE Table  CMS Transmittal 12674"
     },
     "NCD_Terminated": {
         "description": "National Coverage Determination for this procedure is terminated or expired.",
@@ -184,7 +184,7 @@ ARCHETYPE_DEFINITIONS = {
             "No immediate action required unless secondary DX is used to justify medical necessity.",
             "Review LCD for co-diagnosis pairings and update if necessary."
         ],
-        "sample_reference": "LCD Crosswalk Guidelines – Secondary Diagnosis Coverage"
+        "sample_reference": "LCD Crosswalk Guidelines  Secondary Diagnosis Coverage"
     },
     "Compliant": {
         "description": "Claim appears compliant and passes all denial risk checks.",
@@ -203,7 +203,7 @@ ARCHETYPE_DEFINITIONS = {
         "correction_strategies": [
             "Maintain documentation and continue standard billing process."
         ],
-        "sample_reference": "CMS Claims Processing Manual Ch. 12 §40"
+        "sample_reference": "CMS Claims Processing Manual Ch. 12 40"
     }
 }
 
@@ -456,7 +456,7 @@ class ArchetypeDrivenClaimCorrector:
 
         enriched_issues = []
         for issue in issues:
-            print(f"\n📋 Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
+            print(f"\n Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
             
             #  Get CPT description
             cpt_code = issue.get('hcpcs_code', '')
@@ -465,7 +465,7 @@ class ArchetypeDrivenClaimCorrector:
                 issue['procedure_name'] = dynamic_procedure_name
                 print(f"    Updated procedure name: {dynamic_procedure_name}")
             
-            # 🤲 STAGE 1: Calibrated Denial Reasoning Pass
+            #  STAGE 1: Calibrated Denial Reasoning Pass
             print(f"    STAGE 1: Calibrated denial reasoning analysis...")
             stage1_result = self._stage1_calibrated_denial_reasoning(issue)
             
@@ -497,7 +497,7 @@ class ArchetypeDrivenClaimCorrector:
         
         # Validate and deduplicate policies using calibrated logic
         validated_policies = self._calibrated_validate_and_deduplicate_policies(all_policies, issue)
-        print(f"   📚 Stage 1: Retrieved {len(validated_policies)} calibrated policies for denial analysis")
+        print(f"    Stage 1: Retrieved {len(validated_policies)} calibrated policies for denial analysis")
         
         # Run Stage 1 calibrated LLM analysis
         stage1_analysis = self._run_calibrated_stage1_llm(issue, validated_policies)
@@ -519,20 +519,20 @@ class ArchetypeDrivenClaimCorrector:
         
         print(f"    Stage 2: Detected archetype '{archetype}' - {archetype_info.get('description', '')}")
         
-        # 🗄️ STEP 1: Gather SQL evidence for this archetype based on code combinations
+        #  STEP 1: Gather SQL evidence for this archetype based on code combinations
         codes = {
             'hcpcs_code': issue.get('hcpcs_code', ''),
             'icd9_code': issue.get('icd9_code', ''),
             'icd10_code': issue.get('icd10_code', '')
         }
         sql_evidence = self.sql_connector.execute_archetype_query(archetype, codes)
-        print(f"   🗄️ Stage 2: Retrieved {len(sql_evidence)} SQL evidence records for archetype '{archetype}'")
+        print(f"    Stage 2: Retrieved {len(sql_evidence)} SQL evidence records for archetype '{archetype}'")
         
-        # 📚 STEP 2: Search for archetype-specific correction policies
+        #  STEP 2: Search for archetype-specific correction policies
         correction_policies = self._search_archetype_corrections(issue, archetype)
-        print(f"   📚 Stage 2: Retrieved {len(correction_policies)} archetype-specific policies for correction analysis")
+        print(f"    Stage 2: Retrieved {len(correction_policies)} archetype-specific policies for correction analysis")
         
-        # 🤖 STEP 3: Run SQL-driven archetype Stage 2 LLM analysis
+        #  STEP 3: Run SQL-driven archetype Stage 2 LLM analysis
         stage2_analysis = self._run_sql_driven_archetype_stage2_llm(issue, stage1_result, correction_policies, archetype, sql_evidence)
         
         return {
@@ -1138,7 +1138,7 @@ ARCHETYPE_DEFINITIONS = {
             "Split procedures into separate claim lines when appropriate.",
             "Verify same-day procedure compatibility per NCCI edits."
         ],
-        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, §E.1"
+        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, E.1"
     },
     "Primary_DX_Not_Covered": {
         "description": "Primary ICD-10 diagnosis is not covered under the relevant LCD or NCD.",
@@ -1169,7 +1169,7 @@ ARCHETYPE_DEFINITIONS = {
             "Validate medical necessity using LCD/NCD coverage criteria.",
             "Ensure diagnosis supports medical necessity of CPT/HCPCS code."
         ],
-        "sample_reference": "LCD L34696 – Fracture and Bone Imaging Coverage"
+        "sample_reference": "LCD L34696  Fracture and Bone Imaging Coverage"
     },
     "MUE_Risk": {
         "description": "Billed units exceed the Medically Unlikely Edit (MUE) threshold for this HCPCS/CPT code.",
@@ -1189,13 +1189,13 @@ ARCHETYPE_DEFINITIONS = {
             WHERE ncci.procedure_code = ?
               AND ncci.mue_threshold IS NOT NULL
         """,
-        "sql_insight": "Identifies where claim line units exceed CMS MUE limits and flags corresponding MAI (1–3) levels.",
+        "sql_insight": "Identifies where claim line units exceed CMS MUE limits and flags corresponding MAI (13) levels.",
         "correction_strategies": [
-            "Reduce billed units to ≤ MUE limit for the HCPCS/CPT code.",
+            "Reduce billed units to  MUE limit for the HCPCS/CPT code.",
             "Include medical necessity documentation for exceeding MUE threshold.",
             "Verify if MUE has MAI of 1 (line edit) or 2/3 (date of service edit)."
         ],
-        "sample_reference": "NCCI MUE Table – CMS Transmittal 12674"
+        "sample_reference": "NCCI MUE Table  CMS Transmittal 12674"
     },
     "NCD_Terminated": {
         "description": "National Coverage Determination for this procedure is terminated or expired.",
@@ -1252,7 +1252,7 @@ ARCHETYPE_DEFINITIONS = {
             "No immediate action required unless secondary DX is used to justify medical necessity.",
             "Review LCD for co-diagnosis pairings and update if necessary."
         ],
-        "sample_reference": "LCD Crosswalk Guidelines – Secondary Diagnosis Coverage"
+        "sample_reference": "LCD Crosswalk Guidelines  Secondary Diagnosis Coverage"
     },
     "Compliant": {
         "description": "Claim appears compliant and passes all denial risk checks.",
@@ -1271,7 +1271,7 @@ ARCHETYPE_DEFINITIONS = {
         "correction_strategies": [
             "Maintain documentation and continue standard billing process."
         ],
-        "sample_reference": "CMS Claims Processing Manual Ch. 12 §40"
+        "sample_reference": "CMS Claims Processing Manual Ch. 12 40"
     }
 }
 
@@ -1524,7 +1524,7 @@ class ArchetypeDrivenClaimCorrector:
 
         enriched_issues = []
         for issue in issues:
-            print(f"\n📋 Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
+            print(f"\n Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
             
             #  Get CPT description
             cpt_code = issue.get('hcpcs_code', '')
@@ -1533,7 +1533,7 @@ class ArchetypeDrivenClaimCorrector:
                 issue['procedure_name'] = dynamic_procedure_name
                 print(f"    Updated procedure name: {dynamic_procedure_name}")
             
-            # 🤲 STAGE 1: Calibrated Denial Reasoning Pass
+            #  STAGE 1: Calibrated Denial Reasoning Pass
             print(f"    STAGE 1: Calibrated denial reasoning analysis...")
             stage1_result = self._stage1_calibrated_denial_reasoning(issue)
             
@@ -1565,7 +1565,7 @@ class ArchetypeDrivenClaimCorrector:
         
         # Validate and deduplicate policies using calibrated logic
         validated_policies = self._calibrated_validate_and_deduplicate_policies(all_policies, issue)
-        print(f"   📚 Stage 1: Retrieved {len(validated_policies)} calibrated policies for denial analysis")
+        print(f"    Stage 1: Retrieved {len(validated_policies)} calibrated policies for denial analysis")
         
         # Run Stage 1 calibrated LLM analysis
         stage1_analysis = self._run_calibrated_stage1_llm(issue, validated_policies)
@@ -1587,20 +1587,20 @@ class ArchetypeDrivenClaimCorrector:
         
         print(f"    Stage 2: Detected archetype '{archetype}' - {archetype_info.get('description', '')}")
         
-        # 🗄️ STEP 1: Gather SQL evidence for this archetype based on code combinations
+        #  STEP 1: Gather SQL evidence for this archetype based on code combinations
         codes = {
             'hcpcs_code': issue.get('hcpcs_code', ''),
             'icd9_code': issue.get('icd9_code', ''),
             'icd10_code': issue.get('icd10_code', '')
         }
         sql_evidence = self.sql_connector.execute_archetype_query(archetype, codes)
-        print(f"   🗄️ Stage 2: Retrieved {len(sql_evidence)} SQL evidence records for archetype '{archetype}'")
+        print(f"    Stage 2: Retrieved {len(sql_evidence)} SQL evidence records for archetype '{archetype}'")
         
-        # 📚 STEP 2: Search for archetype-specific correction policies
+        #  STEP 2: Search for archetype-specific correction policies
         correction_policies = self._search_archetype_corrections(issue, archetype)
-        print(f"   📚 Stage 2: Retrieved {len(correction_policies)} archetype-specific policies for correction analysis")
+        print(f"    Stage 2: Retrieved {len(correction_policies)} archetype-specific policies for correction analysis")
         
-        # 🤖 STEP 3: Run SQL-driven archetype Stage 2 LLM analysis
+        #  STEP 3: Run SQL-driven archetype Stage 2 LLM analysis
         stage2_analysis = self._run_sql_driven_archetype_stage2_llm(issue, stage1_result, correction_policies, archetype, sql_evidence)
         
         return {
@@ -2208,7 +2208,7 @@ ARCHETYPE_DEFINITIONS = {
             "Split procedures into separate claim lines when appropriate.",
             "Verify same-day procedure compatibility per NCCI edits."
         ],
-        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, §E.1"
+        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, E.1"
     },
     "Primary_DX_Not_Covered": {
         "description": "Primary ICD-10 diagnosis is not covered under the relevant LCD or NCD.",
@@ -2239,7 +2239,7 @@ ARCHETYPE_DEFINITIONS = {
             "Validate medical necessity using LCD/NCD coverage criteria.",
             "Ensure diagnosis supports medical necessity of CPT/HCPCS code."
         ],
-        "sample_reference": "LCD L34696 – Fracture and Bone Imaging Coverage"
+        "sample_reference": "LCD L34696  Fracture and Bone Imaging Coverage"
     },
     "MUE_Risk": {
         "description": "Billed units exceed the Medically Unlikely Edit (MUE) threshold for this HCPCS/CPT code.",
@@ -2259,13 +2259,13 @@ ARCHETYPE_DEFINITIONS = {
             WHERE ncci.procedure_code = ?
               AND ncci.mue_threshold IS NOT NULL
         """,
-        "sql_insight": "Identifies where claim line units exceed CMS MUE limits and flags corresponding MAI (1–3) levels.",
+        "sql_insight": "Identifies where claim line units exceed CMS MUE limits and flags corresponding MAI (13) levels.",
         "correction_strategies": [
-            "Reduce billed units to ≤ MUE limit for the HCPCS/CPT code.",
+            "Reduce billed units to  MUE limit for the HCPCS/CPT code.",
             "Include medical necessity documentation for exceeding MUE threshold.",
             "Verify if MUE has MAI of 1 (line edit) or 2/3 (date of service edit)."
         ],
-        "sample_reference": "NCCI MUE Table – CMS Transmittal 12674"
+        "sample_reference": "NCCI MUE Table  CMS Transmittal 12674"
     },
     "NCD_Terminated": {
         "description": "National Coverage Determination for this procedure is terminated or expired.",
@@ -2322,7 +2322,7 @@ ARCHETYPE_DEFINITIONS = {
             "No immediate action required unless secondary DX is used to justify medical necessity.",
             "Review LCD for co-diagnosis pairings and update if necessary."
         ],
-        "sample_reference": "LCD Crosswalk Guidelines – Secondary Diagnosis Coverage"
+        "sample_reference": "LCD Crosswalk Guidelines  Secondary Diagnosis Coverage"
     },
     "Compliant": {
         "description": "Claim appears compliant and passes all denial risk checks.",
@@ -2341,7 +2341,7 @@ ARCHETYPE_DEFINITIONS = {
         "correction_strategies": [
             "Maintain documentation and continue standard billing process."
         ],
-        "sample_reference": "CMS Claims Processing Manual Ch. 12 §40"
+        "sample_reference": "CMS Claims Processing Manual Ch. 12 40"
     }
 }
 
@@ -2594,7 +2594,7 @@ class ArchetypeDrivenClaimCorrector:
 
         enriched_issues = []
         for issue in issues:
-            print(f"\n📋 Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
+            print(f"\n Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
             
             #  Get CPT description
             cpt_code = issue.get('hcpcs_code', '')
@@ -2603,7 +2603,7 @@ class ArchetypeDrivenClaimCorrector:
                 issue['procedure_name'] = dynamic_procedure_name
                 print(f"    Updated procedure name: {dynamic_procedure_name}")
             
-            # 🤲 STAGE 1: Calibrated Denial Reasoning Pass
+            #  STAGE 1: Calibrated Denial Reasoning Pass
             print(f"    STAGE 1: Calibrated denial reasoning analysis...")
             stage1_result = self._stage1_calibrated_denial_reasoning(issue)
             
@@ -2635,7 +2635,7 @@ class ArchetypeDrivenClaimCorrector:
         
         # Validate and deduplicate policies using calibrated logic
         validated_policies = self._calibrated_validate_and_deduplicate_policies(all_policies, issue)
-        print(f"   📚 Stage 1: Retrieved {len(validated_policies)} calibrated policies for denial analysis")
+        print(f"    Stage 1: Retrieved {len(validated_policies)} calibrated policies for denial analysis")
         
         # Run Stage 1 calibrated LLM analysis
         stage1_analysis = self._run_calibrated_stage1_llm(issue, validated_policies)
@@ -2657,20 +2657,20 @@ class ArchetypeDrivenClaimCorrector:
         
         print(f"    Stage 2: Detected archetype '{archetype}' - {archetype_info.get('description', '')}")
         
-        # 🗄️ STEP 1: Gather SQL evidence for this archetype based on code combinations
+        #  STEP 1: Gather SQL evidence for this archetype based on code combinations
         codes = {
             'hcpcs_code': issue.get('hcpcs_code', ''),
             'icd9_code': issue.get('icd9_code', ''),
             'icd10_code': issue.get('icd10_code', '')
         }
         sql_evidence = self.sql_connector.execute_archetype_query(archetype, codes)
-        print(f"   🗄️ Stage 2: Retrieved {len(sql_evidence)} SQL evidence records for archetype '{archetype}'")
+        print(f"    Stage 2: Retrieved {len(sql_evidence)} SQL evidence records for archetype '{archetype}'")
         
-        # 📚 STEP 2: Search for archetype-specific correction policies
+        #  STEP 2: Search for archetype-specific correction policies
         correction_policies = self._search_archetype_corrections(issue, archetype)
-        print(f"   📚 Stage 2: Retrieved {len(correction_policies)} archetype-specific policies for correction analysis")
+        print(f"    Stage 2: Retrieved {len(correction_policies)} archetype-specific policies for correction analysis")
         
-        # 🤖 STEP 3: Run SQL-driven archetype Stage 2 LLM analysis
+        #  STEP 3: Run SQL-driven archetype Stage 2 LLM analysis
         stage2_analysis = self._run_sql_driven_archetype_stage2_llm(issue, stage1_result, correction_policies, archetype, sql_evidence)
         
         return {
@@ -3276,7 +3276,7 @@ ARCHETYPE_DEFINITIONS = {
             "Split procedures into separate claim lines when appropriate.",
             "Verify same-day procedure compatibility per NCCI edits."
         ],
-        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, §E.1"
+        "sample_reference": "Medicare NCCI Policy Manual, Chapter I, E.1"
     },
     "Primary_DX_Not_Covered": {
         "description": "Primary ICD-10 diagnosis is not covered under the relevant LCD or NCD.",
@@ -3307,7 +3307,7 @@ ARCHETYPE_DEFINITIONS = {
             "Validate medical necessity using LCD/NCD coverage criteria.",
             "Ensure diagnosis supports medical necessity of CPT/HCPCS code."
         ],
-        "sample_reference": "LCD L34696 – Fracture and Bone Imaging Coverage"
+        "sample_reference": "LCD L34696  Fracture and Bone Imaging Coverage"
     },
     "MUE_Risk": {
         "description": "Billed units exceed the Medically Unlikely Edit (MUE) threshold for this HCPCS/CPT code.",
@@ -3327,13 +3327,13 @@ ARCHETYPE_DEFINITIONS = {
             WHERE ncci.procedure_code = ?
               AND ncci.mue_threshold IS NOT NULL
         """,
-        "sql_insight": "Identifies where claim line units exceed CMS MUE limits and flags corresponding MAI (1–3) levels.",
+        "sql_insight": "Identifies where claim line units exceed CMS MUE limits and flags corresponding MAI (13) levels.",
         "correction_strategies": [
-            "Reduce billed units to ≤ MUE limit for the HCPCS/CPT code.",
+            "Reduce billed units to  MUE limit for the HCPCS/CPT code.",
             "Include medical necessity documentation for exceeding MUE threshold.",
             "Verify if MUE has MAI of 1 (line edit) or 2/3 (date of service edit)."
         ],
-        "sample_reference": "NCCI MUE Table – CMS Transmittal 12674"
+        "sample_reference": "NCCI MUE Table  CMS Transmittal 12674"
     },
     "NCD_Terminated": {
         "description": "National Coverage Determination for this procedure is terminated or expired.",
@@ -3390,7 +3390,7 @@ ARCHETYPE_DEFINITIONS = {
             "No immediate action required unless secondary DX is used to justify medical necessity.",
             "Review LCD for co-diagnosis pairings and update if necessary."
         ],
-        "sample_reference": "LCD Crosswalk Guidelines – Secondary Diagnosis Coverage"
+        "sample_reference": "LCD Crosswalk Guidelines  Secondary Diagnosis Coverage"
     },
     "Compliant": {
         "description": "Claim appears compliant and passes all denial risk checks.",
@@ -3409,7 +3409,7 @@ ARCHETYPE_DEFINITIONS = {
         "correction_strategies": [
             "Maintain documentation and continue standard billing process."
         ],
-        "sample_reference": "CMS Claims Processing Manual Ch. 12 §40"
+        "sample_reference": "CMS Claims Processing Manual Ch. 12 40"
     }
 }
 
@@ -3662,7 +3662,7 @@ class ArchetypeDrivenClaimCorrector:
 
         enriched_issues = []
         for issue in issues:
-            print(f"\n📋 Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
+            print(f"\n Processing issue: {issue.get('hcpcs_code', 'N/A')} + {issue.get('icd10_code', 'N/A')}")
             
             #  Get CPT description
             cpt_code = issue.get('hcpcs_code', '')
@@ -3671,7 +3671,7 @@ class ArchetypeDrivenClaimCorrector:
                 issue['procedure_name'] = dynamic_procedure_name
                 print(f"    Updated procedure name: {dynamic_procedure_name}")
             
-            # 🤲 STAGE 1: Calibrated Denial Reasoning Pass
+            #  STAGE 1: Calibrated Denial Reasoning Pass
             print(f"    STAGE 1: Calibrated denial reasoning analysis...")
             stage1_result = self._stage1_calibrated_denial_reasoning(issue)
             
@@ -3703,7 +3703,7 @@ class ArchetypeDrivenClaimCorrector:
         
         # Validate and deduplicate policies using calibrated logic
         validated_policies = self._calibrated_validate_and_deduplicate_policies(all_policies, issue)
-        print(f"   📚 Stage 1: Retrieved {len(validated_policies)} calibrated policies for denial analysis")
+        print(f"    Stage 1: Retrieved {len(validated_policies)} calibrated policies for denial analysis")
         
         # Run Stage 1 calibrated LLM analysis
         stage1_analysis = self._run_calibrated_stage1_llm(issue, validated_policies)
@@ -3725,20 +3725,20 @@ class ArchetypeDrivenClaimCorrector:
         
         print(f"    Stage 2: Detected archetype '{archetype}' - {archetype_info.get('description', '')}")
         
-        # 🗄️ STEP 1: Gather SQL evidence for this archetype based on code combinations
+        #  STEP 1: Gather SQL evidence for this archetype based on code combinations
         codes = {
             'hcpcs_code': issue.get('hcpcs_code', ''),
             'icd9_code': issue.get('icd9_code', ''),
             'icd10_code': issue.get('icd10_code', '')
         }
         sql_evidence = self.sql_connector.execute_archetype_query(archetype, codes)
-        print(f"   🗄️ Stage 2: Retrieved {len(sql_evidence)} SQL evidence records for archetype '{archetype}'")
+        print(f"    Stage 2: Retrieved {len(sql_evidence)} SQL evidence records for archetype '{archetype}'")
         
-        # 📚 STEP 2: Search for archetype-specific correction policies
+        #  STEP 2: Search for archetype-specific correction policies
         correction_policies = self._search_archetype_corrections(issue, archetype)
-        print(f"   📚 Stage 2: Retrieved {len(correction_policies)} archetype-specific policies for correction analysis")
+        print(f"    Stage 2: Retrieved {len(correction_policies)} archetype-specific policies for correction analysis")
         
-        # 🤖 STEP 3: Run SQL-driven archetype Stage 2 LLM analysis
+        #  STEP 3: Run SQL-driven archetype Stage 2 LLM analysis
         stage2_analysis = self._run_sql_driven_archetype_stage2_llm(issue, stage1_result, correction_policies, archetype, sql_evidence)
         
         return {
