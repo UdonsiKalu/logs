@@ -1,7 +1,7 @@
 #!/bin/bash
 # Start monitoring workspace now (for testing)
 
-echo "🚀 Starting monitoring workspace..."
+echo " Starting monitoring workspace..."
 echo "This will create a screen session with multiple monitoring windows."
 echo ""
 

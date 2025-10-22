@@ -7,7 +7,7 @@ DENIALS_DIR="/media/udonsi-kalu/New Volume/denials"
 RAG_DIR="$DENIALS_DIR/cms/manuals/rag"
 VENV_PATH="$DENIALS_DIR/faiss_gpu1/bin/activate"
 
-echo "🚀 Starting Screen Workspace with all services..."
+echo " Starting Screen Workspace with all services..."
 
 # Kill existing screen sessions if they exist
 screen -S qdrant_monitor -X quit 2>/dev/null
@@ -109,7 +109,7 @@ echo 'Ready to work!';
 bash
 "
 
-echo "✅ Screen workspace created with 7 sessions!"
+echo " Screen workspace created with 7 sessions!"
 echo ""
 echo "📋 Available Screen Sessions:"
 echo "   1. qdrant_monitor    - Qdrant container and logs"
@@ -126,12 +126,12 @@ echo "   Attach to session: screen -r <session_name>"
 echo "   Detach from session: Ctrl+A, then D"
 echo "   Kill session:     screen -S <session_name> -X quit"
 echo ""
-echo "🌐 Your Web Applications:"
+echo " Your Web Applications:"
 echo "   Streamlit App 1: http://localhost:8502"
 echo "   Streamlit App 2: http://localhost:8509"
 echo "   Qdrant Dashboard: http://localhost:6333/dashboard"
 echo ""
-echo "🚀 Quick Start:"
+echo " Quick Start:"
 echo "   screen -r qdrant_monitor    # Monitor Qdrant"
 echo "   screen -r system_monitor    # Monitor system"
 echo "   screen -r shell_session     # Interactive shell"

@@ -60,7 +60,7 @@ check_services() {
     
     for service in "${services[@]}"; do
         if pgrep -f "$service" > /dev/null; then
-            log "✅ $service is running"
+            log " $service is running"
         else
             alert "$service is not running"
         fi
@@ -81,7 +81,7 @@ check_services() {
 check_network() {
     # Check internet connectivity
     if ping -c 1 8.8.8.8 &> /dev/null; then
-        log "✅ Internet connectivity OK"
+        log " Internet connectivity OK"
     else
         alert "No internet connectivity"
     fi
@@ -90,7 +90,7 @@ check_network() {
     local ports=("6333" "6334" "8502" "8509" "11434")
     for port in "${ports[@]}"; do
         if nc -z localhost "$port" 2>/dev/null; then
-            log "✅ Port $port is accessible"
+            log " Port $port is accessible"
         else
             alert "Port $port is not accessible"
         fi
@@ -184,9 +184,9 @@ done
 
 MONITOR_PID=$!
 echo $MONITOR_PID > "$HOME/workspace/logs/health_monitor.pid"
-log "✅ Health monitoring service started with PID: $MONITOR_PID"
+log " Health monitoring service started with PID: $MONITOR_PID"
 
-log "✅ System health monitoring service started successfully"
+log " System health monitoring service started successfully"
 log "Health logs: $LOG_FILE"
 log "Alerts: $ALERT_FILE"
 log "Monitoring: CPU, Memory, Disk, Services, Network, GPU"

@@ -73,9 +73,9 @@ log "PID file: $HOME/workspace/logs/rclone.pid"
 # Wait a moment to check if it started successfully
 sleep 2
 if ps -p $RCLONE_PID > /dev/null; then
-    log "✅ Rclone sync is running successfully"
+    log " Rclone sync is running successfully"
 else
-    log "❌ Failed to start rclone sync"
+    log " Failed to start rclone sync"
     exit 1
 fi
 

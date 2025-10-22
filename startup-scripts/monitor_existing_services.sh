@@ -7,7 +7,7 @@ DENIALS_DIR="/media/udonsi-kalu/New Volume/denials"
 RAG_DIR="$DENIALS_DIR/cms/manuals/rag"
 VENV_PATH="$DENIALS_DIR/faiss_gpu1/bin/activate"
 
-echo "🔍 Opening monitoring terminal for your existing services..."
+echo " Opening monitoring terminal for your existing services..."
 
 # Create ONE terminal with tabs to monitor existing services
 gnome-terminal --title="Service Monitor - Existing Services" \
@@ -30,9 +30,9 @@ gnome-terminal --title="Service Monitor - Existing Services" \
     --tab --title="Interactive Shell" --working-directory="$RAG_DIR" \
     -- bash -c "echo 'Interactive Shell - Ready!'; source '$VENV_PATH' 2>/dev/null && echo 'Virtual environment activated' || echo 'Virtual environment not found'; echo 'Ready to work!'; exec bash"
 
-echo "✅ Monitoring terminal opened with 9 tabs!"
+echo " Monitoring terminal opened with 9 tabs!"
 echo ""
-echo "🌐 Your Running Web Applications:"
+echo " Your Running Web Applications:"
 echo "   Streamlit App 1: http://localhost:8502"
 echo "   Streamlit App 2: http://localhost:8509"
 echo "   Qdrant Dashboard: http://localhost:6333/dashboard"

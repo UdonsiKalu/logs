@@ -7,7 +7,7 @@ DENIALS_DIR="/media/udonsi-kalu/New Volume/denials"
 RAG_DIR="$DENIALS_DIR/cms/manuals/rag"
 VENV_PATH="$DENIALS_DIR/faiss_gpu1/bin/activate"
 
-echo "🚀 Starting ALL services in ONE terminal with tabs..."
+echo " Starting ALL services in ONE terminal with tabs..."
 
 # Start the first tab with Qdrant and then add other tabs
 gnome-terminal --title="Workspace - All Services" \
@@ -32,9 +32,9 @@ gnome-terminal --title="Workspace - All Services" \
     --tab --title="Shell" --working-directory="$RAG_DIR" \
     -- bash -c "echo 'Interactive Shell - Ready!'; source '$VENV_PATH'; echo 'Virtual environment activated. Ready to work!'; exec bash"
 
-echo "✅ All services started in ONE terminal with 10 tabs!"
+echo " All services started in ONE terminal with 10 tabs!"
 echo ""
-echo "🌐 Web Applications:"
+echo " Web Applications:"
 echo "   Streamlit App 1: http://localhost:8502"
 echo "   Streamlit App 2: http://localhost:8509"
 echo "   Qdrant Dashboard: http://localhost:6333/dashboard"

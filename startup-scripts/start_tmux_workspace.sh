@@ -8,7 +8,7 @@ RAG_DIR="$DENIALS_DIR/cms/manuals/rag"
 VENV_PATH="$DENIALS_DIR/faiss_gpu1/bin/activate"
 SESSION_NAME="workspace"
 
-echo "🚀 Starting TMUX Workspace with all services..."
+echo " Starting TMUX Workspace with all services..."
 
 # Kill existing session if it exists
 tmux kill-session -t $SESSION_NAME 2>/dev/null
@@ -79,7 +79,7 @@ tmux send-keys -t $SESSION_NAME:10 "echo 'Virtual environment activated. Ready t
 # Select the first window and attach
 tmux select-window -t $SESSION_NAME:1
 
-echo "✅ TMUX workspace created with 10 windows:"
+echo " TMUX workspace created with 10 windows:"
 echo "   Window 1: Qdrant (Docker container)"
 echo "   Window 2: Rclone (Cloud sync)"
 echo "   Window 3: Streamlit App 1 (Port 8502)"
@@ -91,7 +91,7 @@ echo "   Window 8: Database Monitor"
 echo "   Window 9: System Overview"
 echo "   Window 10: Interactive Shell"
 echo ""
-echo "🌐 Web Applications:"
+echo " Web Applications:"
 echo "   Streamlit App 1: http://localhost:8502"
 echo "   Streamlit App 2: http://localhost:8509"
 echo "   Qdrant Dashboard: http://localhost:6333/dashboard"
@@ -102,7 +102,7 @@ echo "   List windows: Ctrl+b, w"
 echo "   Switch windows: Ctrl+b, 0-9"
 echo "   Detach: Ctrl+b, d"
 echo ""
-echo "🚀 Attaching to TMUX session..."
+echo " Attaching to TMUX session..."
 
 # Attach to the session
 tmux attach-session -t $SESSION_NAME

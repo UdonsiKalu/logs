@@ -5,13 +5,13 @@
 HUB_DIR="/home/udonsi-kalu/workspace/streamlit-hub"
 BASE_DIR="/media/udonsi-kalu/New Volume/denials"
 
-echo "🚀 Creating Streamlit Hub with Smart Naming System..."
+echo " Creating Streamlit Hub with Smart Naming System..."
 echo "=================================================="
 
 # Create main hub directory structure
 mkdir -p "$HUB_DIR"/{active,claim-analysis,rag-apps,denial-apps,claim-corrector,new-claim-analyzer,archive,launchers}
 
-echo "📁 Created directory structure:"
+echo " Created directory structure:"
 echo "   active/           - Currently running apps"
 echo "   claim-analysis/   - Complete claim analysis apps"
 echo "   rag-apps/         - RAG-based applications"
@@ -43,7 +43,7 @@ create_smart_link() {
         
         # Create symlink
         ln -sf "$source_file" "$target_dir/$new_name"
-        echo "   ✅ $new_name -> $(basename "$source_file")"
+        echo "    $new_name -> $(basename "$source_file")"
     fi
 }
 
@@ -51,13 +51,13 @@ echo "🔗 Creating symbolic links with smart naming..."
 echo ""
 
 # === ACTIVE APPS (Currently Running) ===
-echo "📱 Active Apps (Currently Running):"
+echo " Active Apps (Currently Running):"
 create_smart_link "$BASE_DIR/cms/manuals/Raw Data/claim_analysis_tools/complete_claim_analysis_app_cgpt3_update7.py" "$HUB_DIR/active" "ACTIVE" "port8509"
 create_smart_link "$BASE_DIR/cms/manuals/rag/streamlit_app4.py" "$HUB_DIR/active" "ACTIVE" "port8502"
 echo ""
 
 # === CLAIM ANALYSIS APPS ===
-echo "🔍 Claim Analysis Apps:"
+echo " Claim Analysis Apps:"
 create_smart_link "$BASE_DIR/cms/manuals/Raw Data/claim_analysis_tools/complete_claim_analysis_app_cgpt3_update8.py" "$HUB_DIR/claim-analysis" "CLAIM_ANALYSIS" "update8"
 create_smart_link "$BASE_DIR/cms/manuals/Raw Data/claim_analysis_tools/complete_claim_analysis_app_cgpt3_update7.py" "$HUB_DIR/claim-analysis" "CLAIM_ANALYSIS" "update7"
 create_smart_link "$BASE_DIR/cms/manuals/Raw Data/claim_analysis_tools/archive_20251011_161233/complete_claim_analysis_app_cgpt3_update6.py" "$HUB_DIR/claim-analysis" "CLAIM_ANALYSIS" "update6"
@@ -79,7 +79,7 @@ create_smart_link "$BASE_DIR/cms/streamlit_app.py" "$HUB_DIR/rag-apps" "RAG" "cm
 echo ""
 
 # === DENIAL APPS ===
-echo "⚠️  Denial Risk Assessment Apps:"
+echo "  Denial Risk Assessment Apps:"
 create_smart_link "$BASE_DIR/denials/streamlit_app.py" "$HUB_DIR/denial-apps" "DENIAL" "main"
 create_smart_link "$BASE_DIR/denials/app.py" "$HUB_DIR/denial-apps" "DENIAL" "agentic"
 create_smart_link "$BASE_DIR/denials/streamlit_entropy.py" "$HUB_DIR/denial-apps" "DENIAL" "entropy"
@@ -133,9 +133,9 @@ create_smart_link "$BASE_DIR/cms/manuals/Raw Data/claim_analysis_tools/archive_2
 create_smart_link "$BASE_DIR/cms/manuals/Raw Data/claim_analysis_tools/archive_20251011_161233/misc/streamlit_app.py" "$HUB_DIR/archive" "COPY" "claim_tools_misc2"
 echo ""
 
-echo "✅ Streamlit Hub created successfully!"
+echo " Streamlit Hub created successfully!"
 echo ""
-echo "📊 Summary:"
+echo " Summary:"
 echo "   Active Apps: $(ls -1 "$HUB_DIR/active" | wc -l)"
 echo "   Claim Analysis: $(ls -1 "$HUB_DIR/claim-analysis" | wc -l)"
 echo "   RAG Apps: $(ls -1 "$HUB_DIR/rag-apps" | wc -l)"
@@ -144,5 +144,5 @@ echo "   Claim Corrector: $(ls -1 "$HUB_DIR/claim-corrector" | wc -l)"
 echo "   New Claim Analyzer: $(ls -1 "$HUB_DIR/new-claim-analyzer" | wc -l)"
 echo "   Archive: $(ls -1 "$HUB_DIR/archive" | wc -l)"
 echo ""
-echo "🎯 Next: Run the launcher script to see all apps organized!"
+echo " Next: Run the launcher script to see all apps organized!"
 

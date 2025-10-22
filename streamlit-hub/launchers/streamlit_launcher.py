@@ -99,7 +99,7 @@ def is_port_in_use(port):
 def main():
     st.set_page_config(
         page_title="Streamlit Hub Launcher",
-        page_icon="📱",
+        page_icon="",
         layout="wide"
     )
     

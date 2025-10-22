@@ -7,7 +7,7 @@ DENIALS_DIR="/media/udonsi-kalu/New Volume/denials"
 RAG_DIR="$DENIALS_DIR/cms/manuals/rag"
 VENV_PATH="$DENIALS_DIR/faiss_gpu1/bin/activate"
 
-echo "🚀 Opening monitoring terminals for each service..."
+echo " Opening monitoring terminals for each service..."
 
 # Terminal 1: Qdrant Monitor
 gnome-terminal --title="Qdrant Monitor" --working-directory="$HOME" \
@@ -103,7 +103,7 @@ echo 'Ready to work!';
 bash
 " &
 
-echo "✅ Opened 7 terminal windows!"
+echo " Opened 7 terminal windows!"
 echo ""
 echo "📋 Each terminal monitors a different service:"
 echo "   1. Qdrant Monitor    - Container status and logs"
@@ -114,13 +114,13 @@ echo "   5. Streamlit Monitor - Apps and port status"
 echo "   6. Logs Monitor      - All service logs"
 echo "   7. Work Shell        - Interactive shell ready for work"
 echo ""
-echo "🎯 Now you can:"
+echo " Now you can:"
 echo "   - Use the + button to add new tabs to any terminal"
 echo "   - Click between tabs to see different services"
 echo "   - Organize tabs however you want"
 echo "   - No need to detach/attach - just click!"
 echo ""
-echo "🌐 Your Web Applications:"
+echo " Your Web Applications:"
 echo "   Streamlit App 1: http://localhost:8502"
 echo "   Streamlit App 2: http://localhost:8509"
 echo "   Qdrant Dashboard: http://localhost:6333/dashboard"

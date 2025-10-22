@@ -21,7 +21,7 @@ create_tab() {
     fi
 }
 
-echo "🚀 Starting Terminal Workspace with all services..."
+echo " Starting Terminal Workspace with all services..."
 
 # Wait a moment for the first tab to be ready
 sleep 1
@@ -56,7 +56,7 @@ create_tab "System Overview" "echo 'System Overview - Press Ctrl+C to exit' && w
 # Tab 10: Interactive Shell
 create_tab "Shell" "echo 'Interactive Shell - Ready for commands' && cd '$RAG_DIR' && source '$VENV_PATH' && echo 'Virtual environment activated. Ready to work!'"
 
-echo "✅ Terminal workspace created with 10 tabs:"
+echo " Terminal workspace created with 10 tabs:"
 echo "   Tab 1: Qdrant (Docker container)"
 echo "   Tab 2: Rclone (Cloud sync)"
 echo "   Tab 3: Streamlit App 1 (Port 8502)"
@@ -68,10 +68,10 @@ echo "   Tab 8: Database Monitor"
 echo "   Tab 9: System Overview"
 echo "   Tab 10: Interactive Shell"
 echo ""
-echo "🌐 Web Applications:"
+echo " Web Applications:"
 echo "   Streamlit App 1: http://localhost:8502"
 echo "   Streamlit App 2: http://localhost:8509"
 echo "   Qdrant Dashboard: http://localhost:6333/dashboard"
 echo ""
-echo "📊 All services are now running in separate terminal tabs!"
+echo " All services are now running in separate terminal tabs!"
 

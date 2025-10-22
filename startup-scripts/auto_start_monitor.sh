@@ -19,11 +19,11 @@ create_monitor_session() {
     
     # Window 1: Qdrant Container Monitor
     screen -S monitor_workspace -X screen -t "Qdrant" bash -c "
-        echo '🔍 Qdrant Container Monitor'
+        echo ' Qdrant Container Monitor'
         echo '========================'
         while true; do
             clear
-            echo '🔍 Qdrant Container Monitor - $(date)'
+            echo ' Qdrant Container Monitor - $(date)'
             echo '====================================='
             echo ''
             echo 'Container Status:'
@@ -49,14 +49,14 @@ create_monitor_session() {
             if [ -f $LOG_DIR/rclone.pid ]; then
                 PID=\$(cat $LOG_DIR/rclone.pid)
                 if ps -p \$PID > /dev/null; then
-                    echo 'Status: ✅ Running (PID: '\$PID')'
+                    echo 'Status:  Running (PID: '\$PID')'
                     echo 'Recent Activity:'
                     tail -5 $LOG_DIR/rclone.log 2>/dev/null || echo 'No recent logs'
                 else
-                    echo 'Status: ❌ Not running (stale PID file)'
+                    echo 'Status:  Not running (stale PID file)'
                 fi
             else
-                echo 'Status: ❌ Not running (no PID file)'
+                echo 'Status:  Not running (no PID file)'
             fi
             echo ''
             echo 'Press Ctrl+C to exit this monitor'
@@ -66,37 +66,37 @@ create_monitor_session() {
     
     # Window 3: Streamlit Apps Monitor
     screen -S monitor_workspace -X screen -t "Streamlit" bash -c "
-        echo '🌐 Streamlit Apps Monitor'
+        echo ' Streamlit Apps Monitor'
         echo '========================'
         while true; do
             clear
-            echo '🌐 Streamlit Apps Monitor - $(date)'
+            echo ' Streamlit Apps Monitor - $(date)'
             echo '=================================='
             echo ''
             echo 'App 1 (Port 8509):'
             if [ -f $LOG_DIR/streamlit_app1.pid ]; then
                 PID=\$(cat $LOG_DIR/streamlit_app1.pid)
                 if ps -p \$PID > /dev/null; then
-                    echo '  Status: ✅ Running (PID: '\$PID')'
+                    echo '  Status:  Running (PID: '\$PID')'
                     echo '  URL: http://localhost:8509'
                 else
-                    echo '  Status: ❌ Not running'
+                    echo '  Status:  Not running'
                 fi
             else
-                echo '  Status: ❌ Not running'
+                echo '  Status:  Not running'
             fi
             echo ''
             echo 'App 2 (Port 8502):'
             if [ -f $LOG_DIR/streamlit_app2.pid ]; then
                 PID=\$(cat $LOG_DIR/streamlit_app2.pid)
                 if ps -p \$PID > /dev/null; then
-                    echo '  Status: ✅ Running (PID: '\$PID')'
+                    echo '  Status:  Running (PID: '\$PID')'
                     echo '  URL: http://localhost:8502'
                 else
-                    echo '  Status: ❌ Not running'
+                    echo '  Status:  Not running'
                 fi
             else
-                echo '  Status: ❌ Not running'
+                echo '  Status:  Not running'
             fi
             echo ''
             echo 'Press Ctrl+C to exit this monitor'
@@ -205,9 +205,9 @@ create_monitor_session() {
         bash
     "
     
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] ✅ Monitor workspace created successfully!"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')]  Monitor workspace created successfully!"
     echo ""
-    echo "🌐 Web Applications:"
+    echo " Web Applications:"
     echo "   Streamlit App 1: http://localhost:8509"
     echo "   Streamlit App 2: http://localhost:8502"
     echo "   Qdrant Dashboard: http://localhost:6333/dashboard"
@@ -218,7 +218,7 @@ create_monitor_session() {
     echo "   Switch windows: Ctrl+A, 0-7"
     echo "   Detach: Ctrl+A, d"
     echo ""
-    echo "🚀 Attaching to monitor workspace..."
+    echo " Attaching to monitor workspace..."
     sleep 2
     screen -r monitor_workspace
 }

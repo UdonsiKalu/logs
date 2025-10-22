@@ -38,7 +38,7 @@ cleanup_old_logs() {
     find "$LOGS_DIR" -name "*.log.*" -type f -mtime +$days_to_keep -delete 2>/dev/null
     find "$LOGS_DIR" -name "*.pid" -type f -mtime +7 -delete 2>/dev/null
     
-    log "✅ Old log cleanup completed"
+    log " Old log cleanup completed"
 }
 
 # Function to check disk space
@@ -47,10 +47,10 @@ check_disk_space() {
     local threshold=80
     
     if [ "$usage" -gt "$threshold" ]; then
-        log "⚠️ WARNING: Disk usage is ${usage}% (threshold: ${threshold}%)"
+        log " WARNING: Disk usage is ${usage}% (threshold: ${threshold}%)"
         log "Consider cleaning up logs or increasing storage"
     else
-        log "✅ Disk usage is ${usage}% (OK)"
+        log " Disk usage is ${usage}% (OK)"
     fi
 }
 
@@ -110,7 +110,7 @@ done
 
 MONITOR_PID=$!
 echo $MONITOR_PID > "$LOGS_DIR/log_management.pid"
-log "✅ Log monitoring service started with PID: $MONITOR_PID"
+log " Log monitoring service started with PID: $MONITOR_PID"
 
 # Set up logrotate configuration
 log "Setting up logrotate configuration..."
@@ -130,7 +130,7 @@ $LOGS_DIR/*.log {
 }
 EOF
 
-log "✅ Log management service started successfully"
+log " Log management service started successfully"
 log "Log files location: $LOGS_DIR"
 log "Log rotation: Daily, keep 30 days"
 log "Max log size: 100MB before rotation"

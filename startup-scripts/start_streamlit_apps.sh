@@ -51,12 +51,12 @@ sleep 3
 
 # Check if both apps are running
 if ps -p $STREAMLIT1_PID > /dev/null && ps -p $STREAMLIT2_PID > /dev/null; then
-    log "✅ Both Streamlit applications started successfully"
+    log " Both Streamlit applications started successfully"
     log "App 4 (streamlit_app4.py): http://localhost:8502"
     log "App 2 (complete_claim_analysis): http://localhost:8509"
     log "Log files: $LOG_FILE.app4, $LOG_FILE.app2"
 else
-    log "❌ Some Streamlit applications failed to start"
+    log " Some Streamlit applications failed to start"
     log "Check logs: $LOG_FILE.app4, $LOG_FILE.app2"
     exit 1
 fi

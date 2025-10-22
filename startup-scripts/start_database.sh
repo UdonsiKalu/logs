@@ -16,24 +16,24 @@ log "Starting database services..."
 
 # Check if SQL Server is running (based on your connection string)
 if pgrep -f "sqlservr" > /dev/null; then
-    log "✅ SQL Server is already running"
+    log " SQL Server is already running"
 else
-    log "⚠️ SQL Server not detected - you may need to start it manually"
+    log " SQL Server not detected - you may need to start it manually"
     log "   Connection string: localhost,1433"
     log "   Database: _reporting"
 fi
 
 # Check if any other database services are running
 if pgrep -f "postgres" > /dev/null; then
-    log "✅ PostgreSQL is running"
+    log " PostgreSQL is running"
 fi
 
 if pgrep -f "mysql" > /dev/null; then
-    log "✅ MySQL is running"
+    log " MySQL is running"
 fi
 
 if pgrep -f "mongod" > /dev/null; then
-    log "✅ MongoDB is running"
+    log " MongoDB is running"
 fi
 
 # Check if database ports are accessible
@@ -41,19 +41,19 @@ log "Checking database connectivity..."
 
 # Test SQL Server port 1433
 if nc -z localhost 1433 2>/dev/null; then
-    log "✅ SQL Server port 1433 is accessible"
+    log " SQL Server port 1433 is accessible"
 else
-    log "⚠️ SQL Server port 1433 is not accessible"
+    log " SQL Server port 1433 is not accessible"
 fi
 
 # Test PostgreSQL port 5432
 if nc -z localhost 5432 2>/dev/null; then
-    log "✅ PostgreSQL port 5432 is accessible"
+    log " PostgreSQL port 5432 is accessible"
 fi
 
 # Test MySQL port 3306
 if nc -z localhost 3306 2>/dev/null; then
-    log "✅ MySQL port 3306 is accessible"
+    log " MySQL port 3306 is accessible"
 fi
 
 log "Database service check completed"

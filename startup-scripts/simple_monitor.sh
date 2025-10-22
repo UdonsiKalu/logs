@@ -2,7 +2,7 @@
 # Simple Service Monitor - ONE Terminal with Tabs
 # Monitors your existing services without starting new ones
 
-echo "🔍 Opening simple monitoring terminal..."
+echo " Opening simple monitoring terminal..."
 
 # Create ONE terminal with tabs
 gnome-terminal --title="Service Monitor" \
@@ -21,9 +21,9 @@ gnome-terminal --title="Service Monitor" \
     --tab --title="Shell" \
     -- bash -c "echo '=== INTERACTIVE SHELL ==='; cd '/media/udonsi-kalu/New Volume/denials/cms/manuals/rag'; source '/media/udonsi-kalu/New Volume/denials/faiss_gpu1/bin/activate' 2>/dev/null && echo 'Virtual environment activated' || echo 'Virtual environment not found'; echo 'Ready to work!'; exec bash"
 
-echo "✅ Monitoring terminal opened with 7 tabs!"
+echo " Monitoring terminal opened with 7 tabs!"
 echo ""
-echo "🌐 Your Web Applications:"
+echo " Your Web Applications:"
 echo "   Streamlit App 1: http://localhost:8502"
 echo "   Streamlit App 2: http://localhost:8509"
 echo "   Qdrant Dashboard: http://localhost:6333/dashboard"
